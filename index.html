@@ -3,83 +3,268 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Weekly Toast Dashboard – Mar 02 – Mar 08, 2026</title>
+<title>Weekly Sales Report – The Oberon Group – Mar 02 – Mar 08, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
-    --bg:#f4f5f7; --card:#fff; --accent:#e85c0d;
-    --text:#1a1a2e; --sub:#6b7280; --am:#3b82f6; --pm:#8b5cf6; --border:#e5e7eb;
+    --bg:       #0b1628;
+    --surface:  #111f3a;
+    --surface2: #172745;
+    --border:   #1e3260;
+    --accent:   #c4622d;
+    --accent2:  #d4783f;
+    --text:     #e8dfd0;
+    --sub:      #7a90b8;
+    --am:       #4a8fb5;
+    --pm:       #9b7db8;
+    --divider:  rgba(196,98,45,.25);
   }
   * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-          background:var(--bg); color:var(--text); }
-  header { background:var(--accent); color:#fff; padding:24px 32px;
-            display:flex; justify-content:space-between; align-items:center; }
-  header h1 { font-size:1.5rem; font-weight:700; }
-  header .week { font-size:.95rem; opacity:.85; }
-  nav.loc-nav { background:#fff; border-bottom:1px solid var(--border);
-                  padding:0 32px; display:flex; gap:0; overflow-x:auto; }
-  nav.loc-nav a { display:inline-block; padding:14px 20px; font-size:.85rem;
-                   font-weight:600; color:var(--sub); text-decoration:none;
-                   border-bottom:3px solid transparent; white-space:nowrap; }
+  body {
+    font-family:"Jost",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    font-weight:300;
+  }
+
+  /* ── Header ── */
+  header {
+    background:var(--surface);
+    border-bottom:1px solid var(--divider);
+    padding:32px 48px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .header-brand { display:flex; align-items:center; gap:20px; }
+  .oberon-logo {
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+  }
+  .oberon-logo svg { width:44px; height:44px; opacity:.9; }
+  .oberon-wordmark {
+    font-family:"Jost",sans-serif;
+    font-weight:300;
+    font-size:.62rem;
+    letter-spacing:.35em;
+    text-transform:uppercase;
+    color:var(--text);
+    opacity:.75;
+    line-height:1.6;
+    text-align:center;
+  }
+  .header-right { text-align:right; }
+  .header-title {
+    font-family:"Cormorant Garamond",serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:1.55rem;
+    color:var(--text);
+    letter-spacing:.02em;
+  }
+  .header-week {
+    font-size:.7rem;
+    font-weight:500;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-top:5px;
+  }
+
+  /* ── Nav ── */
+  nav.loc-nav {
+    background:var(--surface);
+    border-bottom:1px solid var(--border);
+    padding:0 48px;
+    display:flex;
+    overflow-x:auto;
+  }
+  nav.loc-nav a {
+    display:inline-block;
+    padding:14px 22px;
+    font-size:.68rem;
+    font-weight:500;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--sub);
+    text-decoration:none;
+    border-bottom:2px solid transparent;
+    white-space:nowrap;
+    transition:color .2s;
+  }
   nav.loc-nav a:hover { color:var(--text); }
   nav.loc-nav a.active { color:var(--accent); border-bottom-color:var(--accent); }
-  .container { max-width:1400px; margin:0 auto; padding:24px 32px; }
-  .section-title { font-size:1.1rem; font-weight:600; margin:28px 0 12px;
-                    color:var(--text); border-left:4px solid var(--accent); padding-left:10px; }
-  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; }
-  .kpi-grid-sm { grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
-  .kpi-card { background:var(--card); border-radius:12px; padding:18px;
-               box-shadow:0 1px 4px rgba(0,0,0,.08); }
-  .kpi-label { font-size:.75rem; font-weight:600; text-transform:uppercase;
-                letter-spacing:.05em; color:var(--sub); }
-  .kpi-value { font-size:1.7rem; font-weight:700; margin-top:5px; }
-  .kpi-sub   { font-size:.8rem; color:var(--sub); margin-top:3px; }
-  .charts-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-  .chart-card  { background:var(--card); border-radius:12px; padding:20px;
-                  box-shadow:0 1px 4px rgba(0,0,0,.08); }
+
+  /* ── Layout ── */
+  .container { max-width:1440px; margin:0 auto; padding:32px 48px; }
+
+  /* ── Section titles ── */
+  .section-title {
+    font-size:.68rem;
+    font-weight:500;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:36px 0 16px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--divider);
+  }
+
+  /* ── KPI Cards ── */
+  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; }
+  .kpi-grid-sm { grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; }
+  .kpi-card {
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:20px 18px;
+  }
+  .kpi-label {
+    font-size:.62rem;
+    font-weight:500;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    color:var(--sub);
+  }
+  .kpi-value {
+    font-family:"Cormorant Garamond",serif;
+    font-size:2rem;
+    font-weight:300;
+    color:var(--text);
+    margin-top:6px;
+    letter-spacing:.01em;
+  }
+  .kpi-sub { font-size:.72rem; color:var(--sub); margin-top:4px; font-weight:300; }
+
+  /* ── Charts ── */
+  .charts-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .chart-card {
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:22px;
+  }
   .chart-card.full { grid-column:span 2; }
-  .chart-card h3 { font-size:.85rem; font-weight:600; color:var(--sub);
-                    text-transform:uppercase; letter-spacing:.05em; margin-bottom:14px; }
-  table { width:100%; border-collapse:collapse; font-size:.83rem; }
-  th { background:#f9fafb; font-weight:600; text-transform:uppercase; font-size:.7rem;
-        letter-spacing:.05em; color:var(--sub); padding:10px 12px;
-        border-bottom:2px solid var(--border); text-align:left; white-space:nowrap; }
-  td { padding:8px 12px; border-bottom:1px solid var(--border); }
-  .area-cell  { font-weight:600; vertical-align:middle; }
-  .row-am td  { background:#eff6ff; }
-  .row-pm td  { background:#f5f3ff; }
-  .totals-row td { background:#f9fafb; border-top:2px solid var(--border); }
-  .badge { display:inline-block; padding:2px 8px; border-radius:20px;
-            font-size:.7rem; font-weight:700; }
-  .badge-am { background:#dbeafe; color:var(--am); }
-  .badge-pm { background:#ede9fe; color:var(--pm); }
-  .table-card { background:var(--card); border-radius:12px; padding:20px;
-                 box-shadow:0 1px 4px rgba(0,0,0,.08); overflow-x:auto; }
-  .mini-title { font-size:.85rem; font-weight:600; color:var(--sub);
-                 text-transform:uppercase; letter-spacing:.05em; margin-bottom:12px; }
-  .items-table .rank { color:var(--sub); font-weight:600; width:30px; }
-  .loc-section { margin-bottom:40px; }
-  .loc-header { font-size:1.3rem; font-weight:700; padding:14px 14px 14px 18px;
-                 border-left:5px solid var(--accent); background:var(--card);
-                 border-radius:0 10px 10px 0; margin-bottom:14px;
-                 display:flex; align-items:center; gap:10px;
-                 box-shadow:0 1px 4px rgba(0,0,0,.06); }
-  .loc-sub { font-size:.82rem; font-weight:400; color:var(--sub); margin-left:auto; }
-  .loc-dot { display:inline-block; width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+  .chart-card h3 {
+    font-size:.62rem;
+    font-weight:500;
+    text-transform:uppercase;
+    letter-spacing:.2em;
+    color:var(--sub);
+    margin-bottom:18px;
+  }
+
+  /* ── Tables ── */
+  .table-card {
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:0;
+    overflow-x:auto;
+  }
+  table { width:100%; border-collapse:collapse; font-size:.8rem; }
+  th {
+    background:var(--surface2);
+    font-weight:500;
+    text-transform:uppercase;
+    font-size:.62rem;
+    letter-spacing:.15em;
+    color:var(--sub);
+    padding:12px 14px;
+    border-bottom:1px solid var(--border);
+    text-align:left;
+    white-space:nowrap;
+  }
+  td { padding:10px 14px; border-bottom:1px solid var(--border); color:var(--text); font-weight:300; }
+  tr:last-child td { border-bottom:none; }
+  .area-cell { font-weight:500; vertical-align:middle; color:var(--text); }
+  .row-am td { background:rgba(74,143,181,.06); }
+  .row-pm td { background:rgba(155,125,184,.06); }
+  .totals-row td {
+    background:var(--surface2);
+    border-top:1px solid var(--divider);
+    font-weight:500;
+    color:var(--text);
+  }
+  .badge {
+    display:inline-block; padding:2px 9px; border-radius:2px;
+    font-size:.62rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+  }
+  .badge-am { background:rgba(74,143,181,.15); color:var(--am); }
+  .badge-pm { background:rgba(155,125,184,.15); color:var(--pm); }
+  .mini-title {
+    font-size:.62rem; font-weight:500; text-transform:uppercase;
+    letter-spacing:.2em; color:var(--sub); padding:14px 14px 0; margin-bottom:0;
+  }
+  .items-table .rank { color:var(--sub); font-weight:300; width:30px; }
+
+  /* ── Location sections ── */
+  .loc-section { margin-bottom:48px; }
+  .loc-header {
+    display:flex; align-items:center; gap:14px;
+    padding:18px 22px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-left:3px solid var(--accent);
+    border-radius:0 4px 4px 0;
+    margin-bottom:16px;
+  }
+  .loc-header-name {
+    font-family:"Cormorant Garamond",serif;
+    font-size:1.4rem;
+    font-weight:300;
+    font-style:italic;
+    color:var(--text);
+    letter-spacing:.04em;
+  }
+  .loc-sub {
+    font-size:.68rem; font-weight:400; color:var(--sub);
+    letter-spacing:.1em; margin-left:auto;
+  }
+  .loc-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+  /* ── Location comparison row ── */
+  .loc-name-cell { display:flex; align-items:center; gap:8px; }
+
+  /* ── Tabs ── */
   .tab-panel { display:none; }
   .tab-panel.active { display:block; }
-  .generated { text-align:center; color:var(--sub); font-size:.78rem; margin:32px 0 8px; }
+
+  /* ── Footer ── */
+  .report-footer {
+    text-align:center;
+    color:var(--sub);
+    font-size:.65rem;
+    font-weight:300;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:32px 0 40px;
+    border-top:1px solid var(--border);
+    margin-top:48px;
+  }
+
   @media(max-width:900px) {
     .charts-grid { grid-template-columns:1fr; }
     .chart-card.full { grid-column:span 1; }
+    header, .container, nav.loc-nav { padding-left:20px; padding-right:20px; }
   }
 </style>
 </head>
 <body>
 <header>
-  <h1>📊 Weekly Sales Dashboard</h1>
-  <div class="week">Week of Mar 02 – Mar 08, 2026 &nbsp;·&nbsp; 3 Locations</div>
+  <div class="header-brand">
+    <div class="oberon-logo">
+      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="19" stroke="#e8dfd0" stroke-width="1"/>
+        <circle cx="22" cy="22" r="14" stroke="#e8dfd0" stroke-width=".5" opacity=".4"/>
+      </svg>
+      <div class="oberon-wordmark">The<br/>Oberon<br/>Group</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-title">Weekly Sales Report</div>
+    <div class="header-week">Week of Mar 02 – Mar 08, 2026 &nbsp;&middot;&nbsp; 3 Locations</div>
+  </div>
 </header>
 
 <nav class="loc-nav">
@@ -91,7 +276,7 @@
 <div id="tab_summary" class="tab-panel active">
 <div class="container">
 
-  <div class="section-title">Combined KPIs — All Locations</div>
+  <div class="section-title">Combined Performance</div>
   <div class="kpi-grid">
     <div class="kpi-card">
           <div class="kpi-label">Net Sales</div>
@@ -150,7 +335,7 @@
         <th>AM Sales</th><th>PM Sales</th>
       </tr></thead>
       <tbody><tr>
-          <td><span class="loc-dot" style="background:#e85c0d"></span>Anais</td>
+          <td><div class="loc-name-cell"><span class="loc-dot" style="background:#e85c0d"></span>Anais</div></td>
           <td>$34,549.88</td>
           <td>$0.00</td>
           <td>574</td>
@@ -163,7 +348,7 @@
           <td>$0.00</td>
           <td>$0.00</td>
         </tr><tr>
-          <td><span class="loc-dot" style="background:#3b82f6"></span>Rucola</td>
+          <td><div class="loc-name-cell"><span class="loc-dot" style="background:#3b82f6"></span>Rucola</div></td>
           <td>$93,700.91</td>
           <td>$0.00</td>
           <td>521</td>
@@ -176,7 +361,7 @@
           <td>$0.00</td>
           <td>$0.00</td>
         </tr><tr>
-          <td><span class="loc-dot" style="background:#10b981"></span>Rhodora</td>
+          <td><div class="loc-name-cell"><span class="loc-dot" style="background:#10b981"></span>Rhodora</div></td>
           <td>$50,015.83</td>
           <td>$0.00</td>
           <td>722</td>
@@ -205,14 +390,14 @@
     </table>
   </div>
 
-  <div class="section-title">Cross-Location Charts</div>
+  <div class="section-title">Cross-Location Analysis</div>
   <div class="charts-grid">
     <div class="chart-card">
       <h3>Net Sales by Location</h3>
       <canvas id="locSalesChart" height="220"></canvas>
     </div>
     <div class="chart-card">
-      <h3>AM vs PM Sales by Location</h3>
+      <h3>AM vs PM by Location</h3>
       <canvas id="locDaypartChart" height="220"></canvas>
     </div>
     <div class="chart-card full">
@@ -228,9 +413,9 @@
         <div class="loc-section">
           <div class="loc-header" style="border-left-color:#e85c0d">
             <span class="loc-dot" style="background:#e85c0d"></span>
-            Anais
-            <span class="loc-sub">Net Sales: $34,549.88 &nbsp;|&nbsp;
-              Covers: 574 &nbsp;|&nbsp;
+            <span class="loc-header-name">Anais</span>
+            <span class="loc-sub">Net Sales: $34,549.88 &nbsp;&middot;&nbsp;
+              Covers: 574 &nbsp;&middot;&nbsp;
               Labor: 0.0%</span>
           </div>
 
@@ -462,34 +647,43 @@
         <script>
         (function() {
           const color = "#e85c0d";
+          const darkOpts = {
+            color:"#7a90b8",
+            grid:{ color:"rgba(30,50,96,.6)" },
+            ticks:{ color:"#7a90b8" }
+          };
+          const moneyTick = { callback: v => "$" + v.toLocaleString() };
           new Chart(document.getElementById("areaChart_anais"), {
             type:"bar", data:{
               labels:["Other"],
               datasets:[
-                {label:"AM", data:[0], backgroundColor:"rgba(59,130,246,.7)"},
-                {label:"PM", data:[0], backgroundColor:"rgba(139,92,246,.7)"}
+                {label:"AM", data:[0], backgroundColor:"rgba(74,143,181,.7)", borderRadius:2},
+                {label:"PM", data:[0], backgroundColor:"rgba(155,125,184,.7)", borderRadius:2}
               ]
             },
-            options:{ responsive:true, plugins:{legend:{position:"top"}},
-              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+            options:{ responsive:true,
+              plugins:{ legend:{ position:"top", labels:{ color:"#7a90b8", boxWidth:12 } } },
+              scales:{ x:{...darkOpts}, y:{...darkOpts, beginAtZero:true, ticks:{...darkOpts.ticks, callback:moneyTick} } } }
           });
           new Chart(document.getElementById("itemsChart_anais"), {
             type:"bar", data:{
               labels:["Food & Beverage ", "Cocktail Beverage Package", "Anais Buyout F&B Minimum", "Tap Red - Majas, 'Cortado", "Chenin Blanc - La Vignes ", "Devin - Slobodne 'Devina'", "Cabernet sauvignon - Cyri", "HH Glass Special", "Cabernet Franc - Grange A", "Pinot auxerrois - Domaine"],
-              datasets:[{label:"Revenue", data:[31250.0, 27200.0, 3000.0, 1620.0, 1524.6, 1440.0, 1380.0, 1236.0, 1140.0, 1008.0], backgroundColor:color}]
+              datasets:[{label:"Revenue", data:[31250.0, 27200.0, 3000.0, 1620.0, 1524.6, 1440.0, 1380.0, 1236.0, 1140.0, 1008.0], backgroundColor:color, borderRadius:2}]
             },
-            options:{ indexAxis:"y", responsive:true, plugins:{legend:{display:false}},
-              scales:{ x:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+            options:{ indexAxis:"y", responsive:true,
+              plugins:{ legend:{ display:false } },
+              scales:{ x:{...darkOpts, beginAtZero:true, ticks:{...darkOpts.ticks, callback:moneyTick} }, y:{...darkOpts} } }
           });
           new Chart(document.getElementById("hourlyChart_anais"), {
             type:"line", data:{
               labels:[],
               datasets:[{label:"Net Sales", data:[],
-                borderColor:color, backgroundColor:color.replace(")", ",0.1)").replace("rgb","rgba"),
-                fill:true, tension:0.4}]
+                borderColor:color, backgroundColor:color+"33",
+                fill:true, tension:0.4, pointRadius:2}]
             },
-            options:{ responsive:true, plugins:{legend:{display:false}},
-              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+            options:{ responsive:true,
+              plugins:{ legend:{ display:false } },
+              scales:{ x:{...darkOpts}, y:{...darkOpts, beginAtZero:true, ticks:{...darkOpts.ticks, callback:moneyTick} } } }
           });
         })();
         </script>
@@ -498,9 +692,9 @@
         <div class="loc-section">
           <div class="loc-header" style="border-left-color:#3b82f6">
             <span class="loc-dot" style="background:#3b82f6"></span>
-            Rucola
-            <span class="loc-sub">Net Sales: $93,700.91 &nbsp;|&nbsp;
-              Covers: 521 &nbsp;|&nbsp;
+            <span class="loc-header-name">Rucola</span>
+            <span class="loc-sub">Net Sales: $93,700.91 &nbsp;&middot;&nbsp;
+              Covers: 521 &nbsp;&middot;&nbsp;
               Labor: 0.0%</span>
           </div>
 
@@ -732,34 +926,43 @@
         <script>
         (function() {
           const color = "#3b82f6";
+          const darkOpts = {
+            color:"#7a90b8",
+            grid:{ color:"rgba(30,50,96,.6)" },
+            ticks:{ color:"#7a90b8" }
+          };
+          const moneyTick = { callback: v => "$" + v.toLocaleString() };
           new Chart(document.getElementById("areaChart_rucola"), {
             type:"bar", data:{
               labels:["Other"],
               datasets:[
-                {label:"AM", data:[0], backgroundColor:"rgba(59,130,246,.7)"},
-                {label:"PM", data:[0], backgroundColor:"rgba(139,92,246,.7)"}
+                {label:"AM", data:[0], backgroundColor:"rgba(74,143,181,.7)", borderRadius:2},
+                {label:"PM", data:[0], backgroundColor:"rgba(155,125,184,.7)", borderRadius:2}
               ]
             },
-            options:{ responsive:true, plugins:{legend:{position:"top"}},
-              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+            options:{ responsive:true,
+              plugins:{ legend:{ position:"top", labels:{ color:"#7a90b8", boxWidth:12 } } },
+              scales:{ x:{...darkOpts}, y:{...darkOpts, beginAtZero:true, ticks:{...darkOpts.ticks, callback:moneyTick} } } }
           });
           new Chart(document.getElementById("itemsChart_rucola"), {
             type:"bar", data:{
               labels:["Party Food", "Event Menu", "Pwrty Wine", "Party Wine", "Rigatoni", "Garganelli", "Country Breakfast", "Escarole", "Trout", "Short Rib"],
-              datasets:[{label:"Revenue", data:[19500.0, 19125.0, 3600.0, 3600.0, 3450.0, 2940.0, 2664.0, 2300.0, 1860.0, 1517.0], backgroundColor:color}]
+              datasets:[{label:"Revenue", data:[19500.0, 19125.0, 3600.0, 3600.0, 3450.0, 2940.0, 2664.0, 2300.0, 1860.0, 1517.0], backgroundColor:color, borderRadius:2}]
             },
-            options:{ indexAxis:"y", responsive:true, plugins:{legend:{display:false}},
-              scales:{ x:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+            options:{ indexAxis:"y", responsive:true,
+              plugins:{ legend:{ display:false } },
+              scales:{ x:{...darkOpts, beginAtZero:true, ticks:{...darkOpts.ticks, callback:moneyTick} }, y:{...darkOpts} } }
           });
           new Chart(document.getElementById("hourlyChart_rucola"), {
             type:"line", data:{
               labels:[],
               datasets:[{label:"Net Sales", data:[],
-                borderColor:color, backgroundColor:color.replace(")", ",0.1)").replace("rgb","rgba"),
-                fill:true, tension:0.4}]
+                borderColor:color, backgroundColor:color+"33",
+                fill:true, tension:0.4, pointRadius:2}]
             },
-            options:{ responsive:true, plugins:{legend:{display:false}},
-              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+            options:{ responsive:true,
+              plugins:{ legend:{ display:false } },
+              scales:{ x:{...darkOpts}, y:{...darkOpts, beginAtZero:true, ticks:{...darkOpts.ticks, callback:moneyTick} } } }
           });
         })();
         </script>
@@ -768,9 +971,9 @@
         <div class="loc-section">
           <div class="loc-header" style="border-left-color:#10b981">
             <span class="loc-dot" style="background:#10b981"></span>
-            Rhodora
-            <span class="loc-sub">Net Sales: $50,015.83 &nbsp;|&nbsp;
-              Covers: 722 &nbsp;|&nbsp;
+            <span class="loc-header-name">Rhodora</span>
+            <span class="loc-sub">Net Sales: $50,015.83 &nbsp;&middot;&nbsp;
+              Covers: 722 &nbsp;&middot;&nbsp;
               Labor: 0.0%</span>
           </div>
 
@@ -1002,44 +1205,63 @@
         <script>
         (function() {
           const color = "#10b981";
+          const darkOpts = {
+            color:"#7a90b8",
+            grid:{ color:"rgba(30,50,96,.6)" },
+            ticks:{ color:"#7a90b8" }
+          };
+          const moneyTick = { callback: v => "$" + v.toLocaleString() };
           new Chart(document.getElementById("areaChart_rhodora"), {
             type:"bar", data:{
               labels:["Other"],
               datasets:[
-                {label:"AM", data:[0], backgroundColor:"rgba(59,130,246,.7)"},
-                {label:"PM", data:[0], backgroundColor:"rgba(139,92,246,.7)"}
+                {label:"AM", data:[0], backgroundColor:"rgba(74,143,181,.7)", borderRadius:2},
+                {label:"PM", data:[0], backgroundColor:"rgba(155,125,184,.7)", borderRadius:2}
               ]
             },
-            options:{ responsive:true, plugins:{legend:{position:"top"}},
-              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+            options:{ responsive:true,
+              plugins:{ legend:{ position:"top", labels:{ color:"#7a90b8", boxWidth:12 } } },
+              scales:{ x:{...darkOpts}, y:{...darkOpts, beginAtZero:true, ticks:{...darkOpts.ticks, callback:moneyTick} } } }
           });
           new Chart(document.getElementById("itemsChart_rhodora"), {
             type:"bar", data:{
               labels:["Jeux de Vins, Skin Contac", "Annex Minimum", "Grange Aux Belles, La Cha", "Grange Aux Belles, Le Gro", "Julien Pineau, Chicos ", " Le Papillon D'Orphee ", "Castell d'age, Cuvee Pato", "Coutelou, 7 Rue de la Pom", "ONE OF EVERYTHING", "Cheese Plate"],
-              datasets:[{label:"Revenue", data:[6660.0, 5000.0, 3836.0, 2638.0, 2551.0, 1477.0, 1360.0, 1342.0, 1105.0, 1008.0], backgroundColor:color}]
+              datasets:[{label:"Revenue", data:[6660.0, 5000.0, 3836.0, 2638.0, 2551.0, 1477.0, 1360.0, 1342.0, 1105.0, 1008.0], backgroundColor:color, borderRadius:2}]
             },
-            options:{ indexAxis:"y", responsive:true, plugins:{legend:{display:false}},
-              scales:{ x:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+            options:{ indexAxis:"y", responsive:true,
+              plugins:{ legend:{ display:false } },
+              scales:{ x:{...darkOpts, beginAtZero:true, ticks:{...darkOpts.ticks, callback:moneyTick} }, y:{...darkOpts} } }
           });
           new Chart(document.getElementById("hourlyChart_rhodora"), {
             type:"line", data:{
               labels:[],
               datasets:[{label:"Net Sales", data:[],
-                borderColor:color, backgroundColor:color.replace(")", ",0.1)").replace("rgb","rgba"),
-                fill:true, tension:0.4}]
+                borderColor:color, backgroundColor:color+"33",
+                fill:true, tension:0.4, pointRadius:2}]
             },
-            options:{ responsive:true, plugins:{legend:{display:false}},
-              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+            options:{ responsive:true,
+              plugins:{ legend:{ display:false } },
+              scales:{ x:{...darkOpts}, y:{...darkOpts, beginAtZero:true, ticks:{...darkOpts.ticks, callback:moneyTick} } } }
           });
         })();
         </script>
         </div></div>
 
 <div class="container">
-  <div class="generated">Generated 2026-03-11 18:14 · Toast Weekly Dashboard · 3 Locations</div>
+  <div class="report-footer">
+    Generated 2026-03-11 18:49 &nbsp;&middot;&nbsp; The Oberon Group &nbsp;&middot;&nbsp; Weekly Sales Report
+  </div>
 </div>
 
 <script>
+// Shared dark-theme chart defaults
+const dOpts = {
+  color:"#7a90b8",
+  grid:{ color:"rgba(30,50,96,.6)" },
+  ticks:{ color:"#7a90b8" }
+};
+const moneyFmt = { callback: v => "$" + v.toLocaleString() };
+
 // Cross-location charts
 const locLabels   = ["Anais", "Rucola", "Rhodora"];
 const locNetSales = [34549.88, 93700.91, 50015.83];
@@ -1052,24 +1274,27 @@ const locHDatasets = [{"label": "Anais", "data": [], "borderColor": "#e85c0d", "
 new Chart(document.getElementById("locSalesChart"), {
   type:"bar",
   data:{ labels:locLabels, datasets:[{label:"Net Sales", data:locNetSales,
-    backgroundColor:locColors}] },
-  options:{ responsive:true, plugins:{legend:{display:false}},
-    scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+    backgroundColor:locColors, borderRadius:2}] },
+  options:{ responsive:true,
+    plugins:{ legend:{ display:false } },
+    scales:{ x:{...dOpts}, y:{...dOpts, beginAtZero:true, ticks:{...dOpts.ticks, callback:moneyFmt} } } }
 });
 new Chart(document.getElementById("locDaypartChart"), {
   type:"bar",
   data:{ labels:locLabels, datasets:[
-    {label:"AM", data:locAM, backgroundColor:"rgba(59,130,246,.7)"},
-    {label:"PM", data:locPM, backgroundColor:"rgba(139,92,246,.7)"},
+    {label:"AM", data:locAM, backgroundColor:"rgba(74,143,181,.7)", borderRadius:2},
+    {label:"PM", data:locPM, backgroundColor:"rgba(155,125,184,.7)", borderRadius:2},
   ]},
-  options:{ responsive:true, plugins:{legend:{position:"top"}},
-    scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+  options:{ responsive:true,
+    plugins:{ legend:{ position:"top", labels:{ color:"#7a90b8", boxWidth:12 } } },
+    scales:{ x:{...dOpts}, y:{...dOpts, beginAtZero:true, ticks:{...dOpts.ticks, callback:moneyFmt} } } }
 });
 new Chart(document.getElementById("allHourlyChart"), {
   type:"line",
   data:{ labels:allHLabels, datasets:locHDatasets },
-  options:{ responsive:true, plugins:{legend:{position:"top"}},
-    scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+  options:{ responsive:true,
+    plugins:{ legend:{ position:"top", labels:{ color:"#7a90b8", boxWidth:12 } } },
+    scales:{ x:{...dOpts}, y:{...dOpts, beginAtZero:true, ticks:{...dOpts.ticks, callback:moneyFmt} } } }
 });
 
 // Tab switching
