@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Weekly Toast Dashboard – Mar 02 – Mar 08, 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg:#f4f5f7; --card:#fff; --accent:#e85c0d;
+    --text:#1a1a2e; --sub:#6b7280; --am:#3b82f6; --pm:#8b5cf6; --border:#e5e7eb;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+          background:var(--bg); color:var(--text); }
+  header { background:var(--accent); color:#fff; padding:24px 32px;
+            display:flex; justify-content:space-between; align-items:center; }
+  header h1 { font-size:1.5rem; font-weight:700; }
+  header .week { font-size:.95rem; opacity:.85; }
+  nav.loc-nav { background:#fff; border-bottom:1px solid var(--border);
+                  padding:0 32px; display:flex; gap:0; overflow-x:auto; }
+  nav.loc-nav a { display:inline-block; padding:14px 20px; font-size:.85rem;
+                   font-weight:600; color:var(--sub); text-decoration:none;
+                   border-bottom:3px solid transparent; white-space:nowrap; }
+  nav.loc-nav a:hover { color:var(--text); }
+  nav.loc-nav a.active { color:var(--accent); border-bottom-color:var(--accent); }
+  .container { max-width:1400px; margin:0 auto; padding:24px 32px; }
+  .section-title { font-size:1.1rem; font-weight:600; margin:28px 0 12px;
+                    color:var(--text); border-left:4px solid var(--accent); padding-left:10px; }
+  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; }
+  .kpi-grid-sm { grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+  .kpi-card { background:var(--card); border-radius:12px; padding:18px;
+               box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  .kpi-label { font-size:.75rem; font-weight:600; text-transform:uppercase;
+                letter-spacing:.05em; color:var(--sub); }
+  .kpi-value { font-size:1.7rem; font-weight:700; margin-top:5px; }
+  .kpi-sub   { font-size:.8rem; color:var(--sub); margin-top:3px; }
+  .charts-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .chart-card  { background:var(--card); border-radius:12px; padding:20px;
+                  box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  .chart-card.full { grid-column:span 2; }
+  .chart-card h3 { font-size:.85rem; font-weight:600; color:var(--sub);
+                    text-transform:uppercase; letter-spacing:.05em; margin-bottom:14px; }
+  table { width:100%; border-collapse:collapse; font-size:.83rem; }
+  th { background:#f9fafb; font-weight:600; text-transform:uppercase; font-size:.7rem;
+        letter-spacing:.05em; color:var(--sub); padding:10px 12px;
+        border-bottom:2px solid var(--border); text-align:left; white-space:nowrap; }
+  td { padding:8px 12px; border-bottom:1px solid var(--border); }
+  .area-cell  { font-weight:600; vertical-align:middle; }
+  .row-am td  { background:#eff6ff; }
+  .row-pm td  { background:#f5f3ff; }
+  .totals-row td { background:#f9fafb; border-top:2px solid var(--border); }
+  .badge { display:inline-block; padding:2px 8px; border-radius:20px;
+            font-size:.7rem; font-weight:700; }
+  .badge-am { background:#dbeafe; color:var(--am); }
+  .badge-pm { background:#ede9fe; color:var(--pm); }
+  .table-card { background:var(--card); border-radius:12px; padding:20px;
+                 box-shadow:0 1px 4px rgba(0,0,0,.08); overflow-x:auto; }
+  .mini-title { font-size:.85rem; font-weight:600; color:var(--sub);
+                 text-transform:uppercase; letter-spacing:.05em; margin-bottom:12px; }
+  .items-table .rank { color:var(--sub); font-weight:600; width:30px; }
+  .loc-section { margin-bottom:40px; }
+  .loc-header { font-size:1.3rem; font-weight:700; padding:14px 14px 14px 18px;
+                 border-left:5px solid var(--accent); background:var(--card);
+                 border-radius:0 10px 10px 0; margin-bottom:14px;
+                 display:flex; align-items:center; gap:10px;
+                 box-shadow:0 1px 4px rgba(0,0,0,.06); }
+  .loc-sub { font-size:.82rem; font-weight:400; color:var(--sub); margin-left:auto; }
+  .loc-dot { display:inline-block; width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
+  .generated { text-align:center; color:var(--sub); font-size:.78rem; margin:32px 0 8px; }
+  @media(max-width:900px) {
+    .charts-grid { grid-template-columns:1fr; }
+    .chart-card.full { grid-column:span 1; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>📊 Weekly Sales Dashboard</h1>
+  <div class="week">Week of Mar 02 – Mar 08, 2026 &nbsp;·&nbsp; 3 Locations</div>
+</header>
+
+<nav class="loc-nav">
+  <a href="#" class="active" onclick="showTab('summary',this);return false;">All Locations</a>
+  <a href="#" onclick="showTab('loc_anais',this);return false;">Anais</a><a href="#" onclick="showTab('loc_rucola',this);return false;">Rucola</a><a href="#" onclick="showTab('loc_rhodora',this);return false;">Rhodora</a>
+</nav>
+
+<!-- ═══ ALL LOCATIONS SUMMARY ═══ -->
+<div id="tab_summary" class="tab-panel active">
+<div class="container">
+
+  <div class="section-title">Combined KPIs — All Locations</div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+          <div class="kpi-label">Net Sales</div>
+          <div class="kpi-value">$178,266.62</div>
+          
+        </div>
+    <div class="kpi-card">
+          <div class="kpi-label">Gross Sales</div>
+          <div class="kpi-value">$0.00</div>
+          
+        </div>
+    <div class="kpi-card">
+          <div class="kpi-label">Total Covers</div>
+          <div class="kpi-value">1,817</div>
+          
+        </div>
+    <div class="kpi-card">
+          <div class="kpi-label">Total Checks</div>
+          <div class="kpi-value">1,817</div>
+          
+        </div>
+    <div class="kpi-card">
+          <div class="kpi-label">Avg Check</div>
+          <div class="kpi-value">$98.11</div>
+          
+        </div>
+    <div class="kpi-card">
+          <div class="kpi-label">Labor %</div>
+          <div class="kpi-value">0.0%</div>
+          <div class="kpi-sub">$0.00</div>
+        </div>
+    <div class="kpi-card">
+          <div class="kpi-label">Total Voids</div>
+          <div class="kpi-value">$4,051.25</div>
+          
+        </div>
+    <div class="kpi-card">
+          <div class="kpi-label">Total Comps</div>
+          <div class="kpi-value">$0.00</div>
+          
+        </div>
+    <div class="kpi-card">
+          <div class="kpi-label">Total Discounts</div>
+          <div class="kpi-value">$1,901.85</div>
+          
+        </div>
+  </div>
+
+  <div class="section-title">Location Comparison</div>
+  <div class="table-card">
+    <table>
+      <thead><tr>
+        <th>Location</th><th>Net Sales</th><th>Gross Sales</th>
+        <th>Covers</th><th>Checks</th><th>Avg Check</th><th>Labor %</th>
+        <th>Voids</th><th>Comps</th><th>Discounts</th>
+        <th>AM Sales</th><th>PM Sales</th>
+      </tr></thead>
+      <tbody><tr>
+          <td><span class="loc-dot" style="background:#e85c0d"></span>Anais</td>
+          <td>$34,549.88</td>
+          <td>$0.00</td>
+          <td>574</td>
+          <td>574</td>
+          <td>$60.19</td>
+          <td>0.0%</td>
+          <td>$378.75</td>
+          <td>$0.00</td>
+          <td>$1,522.80</td>
+          <td>$0.00</td>
+          <td>$0.00</td>
+        </tr><tr>
+          <td><span class="loc-dot" style="background:#3b82f6"></span>Rucola</td>
+          <td>$93,700.91</td>
+          <td>$0.00</td>
+          <td>521</td>
+          <td>521</td>
+          <td>$179.85</td>
+          <td>0.0%</td>
+          <td>$3,022.50</td>
+          <td>$0.00</td>
+          <td>$47.20</td>
+          <td>$0.00</td>
+          <td>$0.00</td>
+        </tr><tr>
+          <td><span class="loc-dot" style="background:#10b981"></span>Rhodora</td>
+          <td>$50,015.83</td>
+          <td>$0.00</td>
+          <td>722</td>
+          <td>722</td>
+          <td>$69.27</td>
+          <td>0.0%</td>
+          <td>$650.00</td>
+          <td>$0.00</td>
+          <td>$331.85</td>
+          <td>$0.00</td>
+          <td>$0.00</td>
+        </tr><tr class="totals-row">
+      <td><strong>All Locations</strong></td>
+      <td><strong>$178,266.62</strong></td>
+      <td><strong>$0.00</strong></td>
+      <td><strong>1,817</strong></td>
+      <td><strong>1,817</strong></td>
+      <td><strong>$98.11</strong></td>
+      <td><strong>0.0%</strong></td>
+      <td><strong>$4,051.25</strong></td>
+      <td><strong>$0.00</strong></td>
+      <td><strong>$1,901.85</strong></td>
+      <td><strong>$0.00</strong></td>
+      <td><strong>$0.00</strong></td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  <div class="section-title">Cross-Location Charts</div>
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h3>Net Sales by Location</h3>
+      <canvas id="locSalesChart" height="220"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>AM vs PM Sales by Location</h3>
+      <canvas id="locDaypartChart" height="220"></canvas>
+    </div>
+    <div class="chart-card full">
+      <h3>Hourly Sales — All Locations</h3>
+      <canvas id="allHourlyChart" height="110"></canvas>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ PER-LOCATION TABS ═══ -->
+<div id="tab_loc_anais" class="tab-panel"><div class="container">
+        <div class="loc-section">
+          <div class="loc-header" style="border-left-color:#e85c0d">
+            <span class="loc-dot" style="background:#e85c0d"></span>
+            Anais
+            <span class="loc-sub">Net Sales: $34,549.88 &nbsp;|&nbsp;
+              Covers: 574 &nbsp;|&nbsp;
+              Labor: 0.0%</span>
+          </div>
+
+          <div class="kpi-grid kpi-grid-sm">
+            <div class="kpi-card">
+          <div class="kpi-label">Net Sales</div>
+          <div class="kpi-value">$34,549.88</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Gross Sales</div>
+          <div class="kpi-value">$0.00</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Covers</div>
+          <div class="kpi-value">574</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Avg Check</div>
+          <div class="kpi-value">$60.19</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Labor %</div>
+          <div class="kpi-value">0.0%</div>
+          <div class="kpi-sub">$0.00 / 171.3 hrs</div>
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Voids</div>
+          <div class="kpi-value">$378.75</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Comps</div>
+          <div class="kpi-value">$0.00</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Discounts</div>
+          <div class="kpi-value">$1,522.80</div>
+          
+        </div>
+          </div>
+
+          <div class="table-card" style="margin-top:16px">
+            <table>
+              <thead><tr>
+                <th>Area</th><th>Daypart</th><th>Net Sales</th><th>Gross Sales</th>
+                <th>Covers</th><th>Checks</th><th>Avg Check</th>
+                <th>Voids</th><th>Comps</th><th>Discounts</th>
+              </tr></thead>
+              <tbody><tr class="row-am">
+                  <td rowspan="2" class="area-cell">Other</td>
+                  <td><span class="badge badge-am">AM</span></td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                </tr><tr class="row-pm">
+                  
+                  <td><span class="badge badge-pm">PM</span></td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                </tr></tbody>
+              <tfoot>
+                <tr class="totals-row">
+              <td colspan="2"><strong>AM Total</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+            </tr>
+                <tr class="totals-row">
+              <td colspan="2"><strong>PM Total</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+            </tr>
+                <tr class="totals-row">
+              <td colspan="2"><strong>Grand Total</strong></td>
+              <td><strong>$34,549.88</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>574</strong></td>
+              <td><strong>574</strong></td>
+              <td><strong>$60.19</strong></td>
+              <td><strong>$378.75</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$1,522.80</strong></td>
+            </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="charts-grid" style="margin-top:16px">
+            <div class="chart-card">
+              <h3>Sales by Area &amp; Daypart</h3>
+              <canvas id="areaChart_anais" height="220"></canvas>
+            </div>
+            <div class="chart-card">
+              <h3>Top 10 Items by Revenue</h3>
+              <canvas id="itemsChart_anais" height="220"></canvas>
+            </div>
+            <div class="chart-card full">
+              <h3>Hourly Sales</h3>
+              <canvas id="hourlyChart_anais" height="100"></canvas>
+            </div>
+          </div>
+
+          <div class="table-card" style="margin-top:16px">
+            <div class="mini-title">Top 15 Items</div>
+            <table class="items-table">
+              <thead><tr><th>#</th><th>Item</th><th>Qty</th><th>Revenue</th><th>Avg Price</th></tr></thead>
+              <tbody><tr>
+          <td class="rank">1</td>
+          <td>Food & Beverage </td>
+          <td>25.0</td>
+          <td>$31,250.00</td>
+          <td>$1,250.00</td>
+        </tr><tr>
+          <td class="rank">2</td>
+          <td>Cocktail Beverage Package</td>
+          <td>20.0</td>
+          <td>$27,200.00</td>
+          <td>$1,360.00</td>
+        </tr><tr>
+          <td class="rank">3</td>
+          <td>Anais Buyout F&B Minimum</td>
+          <td>1.0</td>
+          <td>$3,000.00</td>
+          <td>$3,000.00</td>
+        </tr><tr>
+          <td class="rank">4</td>
+          <td>Tap Red - Majas, 'Cortado' 24</td>
+          <td>80.0</td>
+          <td>$1,620.00</td>
+          <td>$20.25</td>
+        </tr><tr>
+          <td class="rank">5</td>
+          <td>Chenin Blanc - La Vignes du Fresche 'Radicalement Blanc' 2024</td>
+          <td>59.0</td>
+          <td>$1,524.60</td>
+          <td>$25.84</td>
+        </tr><tr>
+          <td class="rank">6</td>
+          <td>Devin - Slobodne 'Devina' 2021</td>
+          <td>65.0</td>
+          <td>$1,440.00</td>
+          <td>$22.15</td>
+        </tr><tr>
+          <td class="rank">7</td>
+          <td>Cabernet sauvignon - Cyril & Jean Mi VDF Rouge 2024</td>
+          <td>56.0</td>
+          <td>$1,380.00</td>
+          <td>$24.64</td>
+        </tr><tr>
+          <td class="rank">8</td>
+          <td>HH Glass Special</td>
+          <td>67.0</td>
+          <td>$1,236.00</td>
+          <td>$18.45</td>
+        </tr><tr>
+          <td class="rank">9</td>
+          <td>Cabernet Franc - Grange Aux Belles '53' 2024</td>
+          <td>37.0</td>
+          <td>$1,140.00</td>
+          <td>$30.81</td>
+        </tr><tr>
+          <td class="rank">10</td>
+          <td>Pinot auxerrois - Domaine Rietsch 'Tout Blanc' 2024</td>
+          <td>52.0</td>
+          <td>$1,008.00</td>
+          <td>$19.38</td>
+        </tr><tr>
+          <td class="rank">11</td>
+          <td>Loin de L’oeil - Domaine Philemon ‘Perle’ 2023</td>
+          <td>48.0</td>
+          <td>$825.00</td>
+          <td>$17.19</td>
+        </tr><tr>
+          <td class="rank">12</td>
+          <td>Grolleau gris - Clement Baraut 'L aube de beltaine' 2024</td>
+          <td>27.0</td>
+          <td>$774.00</td>
+          <td>$28.67</td>
+        </tr><tr>
+          <td class="rank">13</td>
+          <td>Sparkling - Face B, Pif Paf 2024</td>
+          <td>26.0</td>
+          <td>$720.00</td>
+          <td>$27.69</td>
+        </tr><tr>
+          <td class="rank">14</td>
+          <td>Cot - Jeremy Quasana 'Cot Lectif' 2024</td>
+          <td>29.0</td>
+          <td>$558.00</td>
+          <td>$19.24</td>
+        </tr><tr>
+          <td class="rank">15</td>
+          <td>Barbichette ‘Chette Baker’ 2024</td>
+          <td>5.0</td>
+          <td>$504.00</td>
+          <td>$100.80</td>
+        </tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <script>
+        (function() {
+          const color = "#e85c0d";
+          new Chart(document.getElementById("areaChart_anais"), {
+            type:"bar", data:{
+              labels:["Other"],
+              datasets:[
+                {label:"AM", data:[0], backgroundColor:"rgba(59,130,246,.7)"},
+                {label:"PM", data:[0], backgroundColor:"rgba(139,92,246,.7)"}
+              ]
+            },
+            options:{ responsive:true, plugins:{legend:{position:"top"}},
+              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+          });
+          new Chart(document.getElementById("itemsChart_anais"), {
+            type:"bar", data:{
+              labels:["Food & Beverage ", "Cocktail Beverage Package", "Anais Buyout F&B Minimum", "Tap Red - Majas, 'Cortado", "Chenin Blanc - La Vignes ", "Devin - Slobodne 'Devina'", "Cabernet sauvignon - Cyri", "HH Glass Special", "Cabernet Franc - Grange A", "Pinot auxerrois - Domaine"],
+              datasets:[{label:"Revenue", data:[31250.0, 27200.0, 3000.0, 1620.0, 1524.6, 1440.0, 1380.0, 1236.0, 1140.0, 1008.0], backgroundColor:color}]
+            },
+            options:{ indexAxis:"y", responsive:true, plugins:{legend:{display:false}},
+              scales:{ x:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+          });
+          new Chart(document.getElementById("hourlyChart_anais"), {
+            type:"line", data:{
+              labels:[],
+              datasets:[{label:"Net Sales", data:[],
+                borderColor:color, backgroundColor:color.replace(")", ",0.1)").replace("rgb","rgba"),
+                fill:true, tension:0.4}]
+            },
+            options:{ responsive:true, plugins:{legend:{display:false}},
+              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+          });
+        })();
+        </script>
+        </div></div>
+<div id="tab_loc_rucola" class="tab-panel"><div class="container">
+        <div class="loc-section">
+          <div class="loc-header" style="border-left-color:#3b82f6">
+            <span class="loc-dot" style="background:#3b82f6"></span>
+            Rucola
+            <span class="loc-sub">Net Sales: $93,700.91 &nbsp;|&nbsp;
+              Covers: 521 &nbsp;|&nbsp;
+              Labor: 0.0%</span>
+          </div>
+
+          <div class="kpi-grid kpi-grid-sm">
+            <div class="kpi-card">
+          <div class="kpi-label">Net Sales</div>
+          <div class="kpi-value">$93,700.91</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Gross Sales</div>
+          <div class="kpi-value">$0.00</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Covers</div>
+          <div class="kpi-value">521</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Avg Check</div>
+          <div class="kpi-value">$179.85</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Labor %</div>
+          <div class="kpi-value">0.0%</div>
+          <div class="kpi-sub">$0.00 / 659.5 hrs</div>
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Voids</div>
+          <div class="kpi-value">$3,022.50</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Comps</div>
+          <div class="kpi-value">$0.00</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Discounts</div>
+          <div class="kpi-value">$47.20</div>
+          
+        </div>
+          </div>
+
+          <div class="table-card" style="margin-top:16px">
+            <table>
+              <thead><tr>
+                <th>Area</th><th>Daypart</th><th>Net Sales</th><th>Gross Sales</th>
+                <th>Covers</th><th>Checks</th><th>Avg Check</th>
+                <th>Voids</th><th>Comps</th><th>Discounts</th>
+              </tr></thead>
+              <tbody><tr class="row-am">
+                  <td rowspan="2" class="area-cell">Other</td>
+                  <td><span class="badge badge-am">AM</span></td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                </tr><tr class="row-pm">
+                  
+                  <td><span class="badge badge-pm">PM</span></td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                </tr></tbody>
+              <tfoot>
+                <tr class="totals-row">
+              <td colspan="2"><strong>AM Total</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+            </tr>
+                <tr class="totals-row">
+              <td colspan="2"><strong>PM Total</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+            </tr>
+                <tr class="totals-row">
+              <td colspan="2"><strong>Grand Total</strong></td>
+              <td><strong>$93,700.91</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>521</strong></td>
+              <td><strong>521</strong></td>
+              <td><strong>$179.85</strong></td>
+              <td><strong>$3,022.50</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$47.20</strong></td>
+            </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="charts-grid" style="margin-top:16px">
+            <div class="chart-card">
+              <h3>Sales by Area &amp; Daypart</h3>
+              <canvas id="areaChart_rucola" height="220"></canvas>
+            </div>
+            <div class="chart-card">
+              <h3>Top 10 Items by Revenue</h3>
+              <canvas id="itemsChart_rucola" height="220"></canvas>
+            </div>
+            <div class="chart-card full">
+              <h3>Hourly Sales</h3>
+              <canvas id="hourlyChart_rucola" height="100"></canvas>
+            </div>
+          </div>
+
+          <div class="table-card" style="margin-top:16px">
+            <div class="mini-title">Top 15 Items</div>
+            <table class="items-table">
+              <thead><tr><th>#</th><th>Item</th><th>Qty</th><th>Revenue</th><th>Avg Price</th></tr></thead>
+              <tbody><tr>
+          <td class="rank">1</td>
+          <td>Party Food</td>
+          <td>2.0</td>
+          <td>$19,500.00</td>
+          <td>$9,750.00</td>
+        </tr><tr>
+          <td class="rank">2</td>
+          <td>Event Menu</td>
+          <td>15.0</td>
+          <td>$19,125.00</td>
+          <td>$1,275.00</td>
+        </tr><tr>
+          <td class="rank">3</td>
+          <td>Pwrty Wine</td>
+          <td>1.0</td>
+          <td>$3,600.00</td>
+          <td>$3,600.00</td>
+        </tr><tr>
+          <td class="rank">4</td>
+          <td>Party Wine</td>
+          <td>1.0</td>
+          <td>$3,600.00</td>
+          <td>$3,600.00</td>
+        </tr><tr>
+          <td class="rank">5</td>
+          <td>Rigatoni</td>
+          <td>95.0</td>
+          <td>$3,450.00</td>
+          <td>$36.32</td>
+        </tr><tr>
+          <td class="rank">6</td>
+          <td>Garganelli</td>
+          <td>99.0</td>
+          <td>$2,940.00</td>
+          <td>$29.70</td>
+        </tr><tr>
+          <td class="rank">7</td>
+          <td>Country Breakfast</td>
+          <td>89.0</td>
+          <td>$2,664.00</td>
+          <td>$29.93</td>
+        </tr><tr>
+          <td class="rank">8</td>
+          <td>Escarole</td>
+          <td>123.0</td>
+          <td>$2,300.00</td>
+          <td>$18.70</td>
+        </tr><tr>
+          <td class="rank">9</td>
+          <td>Trout</td>
+          <td>48.0</td>
+          <td>$1,860.00</td>
+          <td>$38.75</td>
+        </tr><tr>
+          <td class="rank">10</td>
+          <td>Short Rib</td>
+          <td>35.0</td>
+          <td>$1,517.00</td>
+          <td>$43.34</td>
+        </tr><tr>
+          <td class="rank">11</td>
+          <td>Scramble</td>
+          <td>63.0</td>
+          <td>$1,409.00</td>
+          <td>$22.37</td>
+        </tr><tr>
+          <td class="rank">12</td>
+          <td>Party Liqour</td>
+          <td>1.0</td>
+          <td>$1,350.00</td>
+          <td>$1,350.00</td>
+        </tr><tr>
+          <td class="rank">13</td>
+          <td>Party Liquor</td>
+          <td>1.0</td>
+          <td>$1,350.00</td>
+          <td>$1,350.00</td>
+        </tr><tr>
+          <td class="rank">14</td>
+          <td>Chicken</td>
+          <td>42.0</td>
+          <td>$1,276.00</td>
+          <td>$30.38</td>
+        </tr><tr>
+          <td class="rank">15</td>
+          <td>Hake</td>
+          <td>30.0</td>
+          <td>$1,216.00</td>
+          <td>$40.53</td>
+        </tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <script>
+        (function() {
+          const color = "#3b82f6";
+          new Chart(document.getElementById("areaChart_rucola"), {
+            type:"bar", data:{
+              labels:["Other"],
+              datasets:[
+                {label:"AM", data:[0], backgroundColor:"rgba(59,130,246,.7)"},
+                {label:"PM", data:[0], backgroundColor:"rgba(139,92,246,.7)"}
+              ]
+            },
+            options:{ responsive:true, plugins:{legend:{position:"top"}},
+              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+          });
+          new Chart(document.getElementById("itemsChart_rucola"), {
+            type:"bar", data:{
+              labels:["Party Food", "Event Menu", "Pwrty Wine", "Party Wine", "Rigatoni", "Garganelli", "Country Breakfast", "Escarole", "Trout", "Short Rib"],
+              datasets:[{label:"Revenue", data:[19500.0, 19125.0, 3600.0, 3600.0, 3450.0, 2940.0, 2664.0, 2300.0, 1860.0, 1517.0], backgroundColor:color}]
+            },
+            options:{ indexAxis:"y", responsive:true, plugins:{legend:{display:false}},
+              scales:{ x:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+          });
+          new Chart(document.getElementById("hourlyChart_rucola"), {
+            type:"line", data:{
+              labels:[],
+              datasets:[{label:"Net Sales", data:[],
+                borderColor:color, backgroundColor:color.replace(")", ",0.1)").replace("rgb","rgba"),
+                fill:true, tension:0.4}]
+            },
+            options:{ responsive:true, plugins:{legend:{display:false}},
+              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+          });
+        })();
+        </script>
+        </div></div>
+<div id="tab_loc_rhodora" class="tab-panel"><div class="container">
+        <div class="loc-section">
+          <div class="loc-header" style="border-left-color:#10b981">
+            <span class="loc-dot" style="background:#10b981"></span>
+            Rhodora
+            <span class="loc-sub">Net Sales: $50,015.83 &nbsp;|&nbsp;
+              Covers: 722 &nbsp;|&nbsp;
+              Labor: 0.0%</span>
+          </div>
+
+          <div class="kpi-grid kpi-grid-sm">
+            <div class="kpi-card">
+          <div class="kpi-label">Net Sales</div>
+          <div class="kpi-value">$50,015.83</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Gross Sales</div>
+          <div class="kpi-value">$0.00</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Covers</div>
+          <div class="kpi-value">722</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Avg Check</div>
+          <div class="kpi-value">$69.27</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Labor %</div>
+          <div class="kpi-value">0.0%</div>
+          <div class="kpi-sub">$0.00 / 183.9 hrs</div>
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Voids</div>
+          <div class="kpi-value">$650.00</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Comps</div>
+          <div class="kpi-value">$0.00</div>
+          
+        </div>
+            <div class="kpi-card">
+          <div class="kpi-label">Discounts</div>
+          <div class="kpi-value">$331.85</div>
+          
+        </div>
+          </div>
+
+          <div class="table-card" style="margin-top:16px">
+            <table>
+              <thead><tr>
+                <th>Area</th><th>Daypart</th><th>Net Sales</th><th>Gross Sales</th>
+                <th>Covers</th><th>Checks</th><th>Avg Check</th>
+                <th>Voids</th><th>Comps</th><th>Discounts</th>
+              </tr></thead>
+              <tbody><tr class="row-am">
+                  <td rowspan="2" class="area-cell">Other</td>
+                  <td><span class="badge badge-am">AM</span></td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                </tr><tr class="row-pm">
+                  
+                  <td><span class="badge badge-pm">PM</span></td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                </tr></tbody>
+              <tfoot>
+                <tr class="totals-row">
+              <td colspan="2"><strong>AM Total</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+            </tr>
+                <tr class="totals-row">
+              <td colspan="2"><strong>PM Total</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>0</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+            </tr>
+                <tr class="totals-row">
+              <td colspan="2"><strong>Grand Total</strong></td>
+              <td><strong>$50,015.83</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>722</strong></td>
+              <td><strong>722</strong></td>
+              <td><strong>$69.27</strong></td>
+              <td><strong>$650.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$331.85</strong></td>
+            </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="charts-grid" style="margin-top:16px">
+            <div class="chart-card">
+              <h3>Sales by Area &amp; Daypart</h3>
+              <canvas id="areaChart_rhodora" height="220"></canvas>
+            </div>
+            <div class="chart-card">
+              <h3>Top 10 Items by Revenue</h3>
+              <canvas id="itemsChart_rhodora" height="220"></canvas>
+            </div>
+            <div class="chart-card full">
+              <h3>Hourly Sales</h3>
+              <canvas id="hourlyChart_rhodora" height="100"></canvas>
+            </div>
+          </div>
+
+          <div class="table-card" style="margin-top:16px">
+            <div class="mini-title">Top 15 Items</div>
+            <table class="items-table">
+              <thead><tr><th>#</th><th>Item</th><th>Qty</th><th>Revenue</th><th>Avg Price</th></tr></thead>
+              <tbody><tr>
+          <td class="rank">1</td>
+          <td>Jeux de Vins, Skin Contact  Keg </td>
+          <td>261.0</td>
+          <td>$6,660.00</td>
+          <td>$25.52</td>
+        </tr><tr>
+          <td class="rank">2</td>
+          <td>Annex Minimum</td>
+          <td>1.0</td>
+          <td>$5,000.00</td>
+          <td>$5,000.00</td>
+        </tr><tr>
+          <td class="rank">3</td>
+          <td>Grange Aux Belles, La Chausse Rouge </td>
+          <td>157.0</td>
+          <td>$3,836.00</td>
+          <td>$24.43</td>
+        </tr><tr>
+          <td class="rank">4</td>
+          <td>Grange Aux Belles, Le Grolleau Noir </td>
+          <td>101.0</td>
+          <td>$2,638.00</td>
+          <td>$26.12</td>
+        </tr><tr>
+          <td class="rank">5</td>
+          <td>Julien Pineau, Chicos </td>
+          <td>107.0</td>
+          <td>$2,551.00</td>
+          <td>$23.84</td>
+        </tr><tr>
+          <td class="rank">6</td>
+          <td> Le Papillon D'Orphee </td>
+          <td>58.0</td>
+          <td>$1,477.00</td>
+          <td>$25.47</td>
+        </tr><tr>
+          <td class="rank">7</td>
+          <td>Castell d'age, Cuvee Patos</td>
+          <td>70.0</td>
+          <td>$1,360.00</td>
+          <td>$19.43</td>
+        </tr><tr>
+          <td class="rank">8</td>
+          <td>Coutelou, 7 Rue de la Pompe </td>
+          <td>58.0</td>
+          <td>$1,342.00</td>
+          <td>$23.14</td>
+        </tr><tr>
+          <td class="rank">9</td>
+          <td>ONE OF EVERYTHING</td>
+          <td>11.0</td>
+          <td>$1,105.00</td>
+          <td>$100.45</td>
+        </tr><tr>
+          <td class="rank">10</td>
+          <td>Cheese Plate</td>
+          <td>42.0</td>
+          <td>$1,008.00</td>
+          <td>$24.00</td>
+        </tr><tr>
+          <td class="rank">11</td>
+          <td>Jade Cash</td>
+          <td>55.0</td>
+          <td>$1,008.00</td>
+          <td>$18.33</td>
+        </tr><tr>
+          <td class="rank">12</td>
+          <td>Draft Killsboro Pilsner</td>
+          <td>89.0</td>
+          <td>$990.00</td>
+          <td>$11.12</td>
+        </tr><tr>
+          <td class="rank">13</td>
+          <td>Saint- Barbe, Macon Blanc </td>
+          <td>43.0</td>
+          <td>$950.00</td>
+          <td>$22.09</td>
+        </tr><tr>
+          <td class="rank">14</td>
+          <td>Bread Service</td>
+          <td>98.0</td>
+          <td>$900.00</td>
+          <td>$9.18</td>
+        </tr><tr>
+          <td class="rank">15</td>
+          <td>Negroni</td>
+          <td>36.0</td>
+          <td>$608.00</td>
+          <td>$16.89</td>
+        </tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <script>
+        (function() {
+          const color = "#10b981";
+          new Chart(document.getElementById("areaChart_rhodora"), {
+            type:"bar", data:{
+              labels:["Other"],
+              datasets:[
+                {label:"AM", data:[0], backgroundColor:"rgba(59,130,246,.7)"},
+                {label:"PM", data:[0], backgroundColor:"rgba(139,92,246,.7)"}
+              ]
+            },
+            options:{ responsive:true, plugins:{legend:{position:"top"}},
+              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+          });
+          new Chart(document.getElementById("itemsChart_rhodora"), {
+            type:"bar", data:{
+              labels:["Jeux de Vins, Skin Contac", "Annex Minimum", "Grange Aux Belles, La Cha", "Grange Aux Belles, Le Gro", "Julien Pineau, Chicos ", " Le Papillon D'Orphee ", "Castell d'age, Cuvee Pato", "Coutelou, 7 Rue de la Pom", "ONE OF EVERYTHING", "Cheese Plate"],
+              datasets:[{label:"Revenue", data:[6660.0, 5000.0, 3836.0, 2638.0, 2551.0, 1477.0, 1360.0, 1342.0, 1105.0, 1008.0], backgroundColor:color}]
+            },
+            options:{ indexAxis:"y", responsive:true, plugins:{legend:{display:false}},
+              scales:{ x:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+          });
+          new Chart(document.getElementById("hourlyChart_rhodora"), {
+            type:"line", data:{
+              labels:[],
+              datasets:[{label:"Net Sales", data:[],
+                borderColor:color, backgroundColor:color.replace(")", ",0.1)").replace("rgb","rgba"),
+                fill:true, tension:0.4}]
+            },
+            options:{ responsive:true, plugins:{legend:{display:false}},
+              scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+          });
+        })();
+        </script>
+        </div></div>
+
+<div class="container">
+  <div class="generated">Generated 2026-03-11 18:14 · Toast Weekly Dashboard · 3 Locations</div>
+</div>
+
+<script>
+// Cross-location charts
+const locLabels   = ["Anais", "Rucola", "Rhodora"];
+const locNetSales = [34549.88, 93700.91, 50015.83];
+const locColors   = ["#e85c0d", "#3b82f6", "#10b981"];
+const locAM       = [0, 0, 0];
+const locPM       = [0, 0, 0];
+const allHLabels  = [];
+const locHDatasets = [{"label": "Anais", "data": [], "borderColor": "#e85c0d", "fill": false, "tension": 0.4}, {"label": "Rucola", "data": [], "borderColor": "#3b82f6", "fill": false, "tension": 0.4}, {"label": "Rhodora", "data": [], "borderColor": "#10b981", "fill": false, "tension": 0.4}];
+
+new Chart(document.getElementById("locSalesChart"), {
+  type:"bar",
+  data:{ labels:locLabels, datasets:[{label:"Net Sales", data:locNetSales,
+    backgroundColor:locColors}] },
+  options:{ responsive:true, plugins:{legend:{display:false}},
+    scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+});
+new Chart(document.getElementById("locDaypartChart"), {
+  type:"bar",
+  data:{ labels:locLabels, datasets:[
+    {label:"AM", data:locAM, backgroundColor:"rgba(59,130,246,.7)"},
+    {label:"PM", data:locPM, backgroundColor:"rgba(139,92,246,.7)"},
+  ]},
+  options:{ responsive:true, plugins:{legend:{position:"top"}},
+    scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+});
+new Chart(document.getElementById("allHourlyChart"), {
+  type:"line",
+  data:{ labels:allHLabels, datasets:locHDatasets },
+  options:{ responsive:true, plugins:{legend:{position:"top"}},
+    scales:{ y:{ beginAtZero:true, ticks:{callback:v=>"$"+v.toLocaleString()} } } }
+});
+
+// Tab switching
+function showTab(id, el) {
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll("nav.loc-nav a").forEach(a => a.classList.remove("active"));
+  el.classList.add("active");
+  const panel = document.getElementById("tab_" + id);
+  if (panel) panel.classList.add("active");
+}
+</script>
+</body>
+</html>
