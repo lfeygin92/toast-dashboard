@@ -205,8 +205,6 @@
   .badge-st_dinner { background:rgba(245,158,11,.15); color:#f59e0b; }
   .row-st_late_night td { background:rgba(74,143,181,.05); }
   .badge-st_late_night { background:rgba(74,143,181,.15); color:#4a8fb5; }
-  .row-st_unknown td { background:rgba(155,125,184,.05); }
-  .badge-st_unknown { background:rgba(155,125,184,.15); color:#9b7db8; }
 
 
   /* ── Location sections ── */
@@ -341,7 +339,7 @@
         <th>Location</th><th>Net Sales</th><th>Gross Sales</th>
         <th>Covers</th><th>Checks</th><th>Avg Check</th><th>Labor %</th>
         <th>Voids</th><th>Comps</th><th>Discounts</th>
-        <th>Breakfast</th><th>Lunch</th><th>AM</th><th>PM</th><th>Dinner</th><th>Late Night</th><th>Unknown</th>
+        <th>Breakfast</th><th>Lunch</th><th>AM</th><th>PM</th><th>Dinner</th><th>Late Night</th>
       </tr></thead>
       <tbody><tr>
           <td><div class="loc-name-cell"><span class="loc-dot" style="background:#e85c0d"></span>Anais</div></td>
@@ -354,7 +352,7 @@
           <td>$378.75</td>
           <td>$0.00</td>
           <td>$1,522.80</td>
-          <td>$0.00</td><td>$0.00</td><td>$3,499.35</td><td>$22,603.34</td><td>$0.00</td><td>$0.00</td><td>$8,447.19</td>
+          <td>$0.00</td><td>$0.00</td><td>$7,990.29</td><td>$26,559.59</td><td>$0.00</td><td>$0.00</td>
         </tr><tr>
           <td><div class="loc-name-cell"><span class="loc-dot" style="background:#3b82f6"></span>Rucola</div></td>
           <td>$93,700.91</td>
@@ -366,7 +364,7 @@
           <td>$3,022.50</td>
           <td>$0.00</td>
           <td>$47.20</td>
-          <td>$6,116.47</td><td>$17,214.73</td><td>$0.00</td><td>$0.00</td><td>$70,369.71</td><td>$0.00</td><td>$0.00</td>
+          <td>$6,116.47</td><td>$17,214.73</td><td>$0.00</td><td>$0.00</td><td>$70,369.71</td><td>$0.00</td>
         </tr><tr>
           <td><div class="loc-name-cell"><span class="loc-dot" style="background:#10b981"></span>Rhodora</div></td>
           <td>$43,440.83</td>
@@ -378,7 +376,7 @@
           <td>$650.00</td>
           <td>$0.00</td>
           <td>$331.85</td>
-          <td>$0.00</td><td>$4,738.63</td><td>$0.00</td><td>$0.00</td><td>$37,734.99</td><td>$917.21</td><td>$50.00</td>
+          <td>$0.00</td><td>$4,738.63</td><td>$0.00</td><td>$50.00</td><td>$37,734.99</td><td>$917.21</td>
         </tr><tr class="totals-row">
       <td><strong>All Locations</strong></td>
       <td><strong>$171,691.62</strong></td>
@@ -390,7 +388,7 @@
       <td><strong>$4,051.25</strong></td>
       <td><strong>$0.00</strong></td>
       <td><strong>$1,901.85</strong></td>
-      <td><strong>$6,116.47</strong></td><td><strong>$21,953.36</strong></td><td><strong>$3,499.35</strong></td><td><strong>$22,603.34</strong></td><td><strong>$108,104.70</strong></td><td><strong>$917.21</strong></td><td><strong>$8,497.19</strong></td>
+      <td><strong>$6,116.47</strong></td><td><strong>$21,953.36</strong></td><td><strong>$7,990.29</strong></td><td><strong>$26,609.59</strong></td><td><strong>$108,104.70</strong></td><td><strong>$917.21</strong></td>
     </tr></tbody>
     </table>
   </div>
@@ -475,70 +473,49 @@
                 <th>Voids</th><th>Comps</th><th>Discounts</th>
               </tr></thead>
               <tbody><tr class="row-st_am">
-                  <td rowspan="3" class="area-cell">Other</td>
+                  <td rowspan="2" class="area-cell">Other</td>
                   <td><span class="badge badge-st_am">AM</span></td>
-                  <td>$3,499.35</td>
+                  <td>$7,990.29</td>
                   <td>$0.00</td>
-                  <td>242</td>
-                  <td>242</td>
-                  <td>$14.46</td>
+                  <td>244</td>
+                  <td>244</td>
+                  <td>$32.75</td>
                   <td>$81.75</td>
                   <td>$0.00</td>
                   <td>$0.00</td>
                 </tr><tr class="row-st_pm">
                   
                   <td><span class="badge badge-st_pm">PM</span></td>
-                  <td>$22,603.34</td>
+                  <td>$26,559.59</td>
                   <td>$0.00</td>
-                  <td>329</td>
-                  <td>329</td>
-                  <td>$68.70</td>
+                  <td>330</td>
+                  <td>330</td>
+                  <td>$80.48</td>
                   <td>$297.00</td>
                   <td>$0.00</td>
                   <td>$1,522.80</td>
-                </tr><tr class="row-st_unknown">
-                  
-                  <td><span class="badge badge-st_unknown">Unknown</span></td>
-                  <td>$8,447.19</td>
-                  <td>$0.00</td>
-                  <td>3</td>
-                  <td>3</td>
-                  <td>$2,815.73</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
                 </tr></tbody>
               <tfoot>
                 <tr class="totals-row">
               <td colspan="2"><strong>AM Total</strong></td>
-              <td><strong>$3,499.35</strong></td>
+              <td><strong>$7,990.29</strong></td>
               <td><strong>$0.00</strong></td>
-              <td><strong>242</strong></td>
-              <td><strong>242</strong></td>
-              <td><strong>$14.46</strong></td>
+              <td><strong>244</strong></td>
+              <td><strong>244</strong></td>
+              <td><strong>$32.75</strong></td>
               <td><strong>$81.75</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
             </tr><tr class="totals-row">
               <td colspan="2"><strong>PM Total</strong></td>
-              <td><strong>$22,603.34</strong></td>
+              <td><strong>$26,559.59</strong></td>
               <td><strong>$0.00</strong></td>
-              <td><strong>329</strong></td>
-              <td><strong>329</strong></td>
-              <td><strong>$68.70</strong></td>
+              <td><strong>330</strong></td>
+              <td><strong>330</strong></td>
+              <td><strong>$80.48</strong></td>
               <td><strong>$297.00</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$1,522.80</strong></td>
-            </tr><tr class="totals-row">
-              <td colspan="2"><strong>Unknown Total</strong></td>
-              <td><strong>$8,447.19</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>3</strong></td>
-              <td><strong>3</strong></td>
-              <td><strong>$2,815.73</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>$0.00</strong></td>
             </tr>
                 <tr class="totals-row">
               <td colspan="2"><strong>Grand Total</strong></td>
@@ -681,7 +658,7 @@
           new Chart(document.getElementById("areaChart_anais"), {
             type:"bar", data:{
               labels:["Other"],
-              datasets:[{"label": "AM", "data": [3499.35], "backgroundColor": "rgba(196,98,45,.7)", "borderRadius": 2}, {"label": "PM", "data": [22603.34], "backgroundColor": "rgba(16,185,129,.7)", "borderRadius": 2}, {"label": "Unknown", "data": [8447.19], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}]
+              datasets:[{"label": "AM", "data": [7990.29], "backgroundColor": "rgba(196,98,45,.7)", "borderRadius": 2}, {"label": "PM", "data": [26559.59], "backgroundColor": "rgba(16,185,129,.7)", "borderRadius": 2}]
             },
             options:{ responsive:true,
               plugins:{ legend:{ position:"top", labels:{ color:"#7a90b8", boxWidth:12 } } },
@@ -698,8 +675,8 @@
           });
           new Chart(document.getElementById("hourlyChart_anais"), {
             type:"line", data:{
-              labels:[],
-              datasets:[{label:"Net Sales", data:[],
+              labels:["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+              datasets:[{label:"Net Sales", data:[5263.47, 3763.12, 1425.51, 574.62, 141.09, 120.14, 22.11, 2664.85, 328.73, 422.83, 460.26, 4581.54, 971.29, 949.76, 1925.08, 2707.5, 3378.28, 4849.7],
                 borderColor:color, backgroundColor:color+"33",
                 fill:true, tension:0.4, pointRadius:2}]
             },
@@ -994,8 +971,8 @@
           });
           new Chart(document.getElementById("hourlyChart_rucola"), {
             type:"line", data:{
-              labels:[],
-              datasets:[{label:"Net Sales", data:[],
+              labels:["00:00", "01:00", "02:00", "03:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+              datasets:[{label:"Net Sales", data:[27131.31, 3805.66, 1189.98, 71.7, 1832.87, 2545.07, 2871.41, 3239.65, 6719.1, 4136.72, 1950.45, 35.93, 1425.46, 5330.53, 31415.07],
                 borderColor:color, backgroundColor:color+"33",
                 fill:true, tension:0.4, pointRadius:2}]
             },
@@ -1077,6 +1054,17 @@
                   <td>$0.00</td>
                   <td>$0.00</td>
                   <td>$314.25</td>
+                </tr><tr class="row-st_pm">
+                  
+                  <td><span class="badge badge-st_pm">PM</span></td>
+                  <td>$50.00</td>
+                  <td>$0.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>$50.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
+                  <td>$0.00</td>
                 </tr><tr class="row-st_dinner">
                   
                   <td><span class="badge badge-st_dinner">Dinner</span></td>
@@ -1099,17 +1087,6 @@
                   <td>$0.00</td>
                   <td>$0.00</td>
                   <td>$0.00</td>
-                </tr><tr class="row-st_unknown">
-                  
-                  <td><span class="badge badge-st_unknown">Unknown</span></td>
-                  <td>$50.00</td>
-                  <td>$0.00</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>$50.00</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
                 </tr></tbody>
               <tfoot>
                 <tr class="totals-row">
@@ -1122,6 +1099,16 @@
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$314.25</strong></td>
+            </tr><tr class="totals-row">
+              <td colspan="2"><strong>PM Total</strong></td>
+              <td><strong>$50.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>1</strong></td>
+              <td><strong>1</strong></td>
+              <td><strong>$50.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$0.00</strong></td>
             </tr><tr class="totals-row">
               <td colspan="2"><strong>Dinner Total</strong></td>
               <td><strong>$37,734.99</strong></td>
@@ -1139,16 +1126,6 @@
               <td><strong>17</strong></td>
               <td><strong>17</strong></td>
               <td><strong>$53.95</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>$0.00</strong></td>
-            </tr><tr class="totals-row">
-              <td colspan="2"><strong>Unknown Total</strong></td>
-              <td><strong>$50.00</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>1</strong></td>
-              <td><strong>1</strong></td>
-              <td><strong>$50.00</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
@@ -1294,7 +1271,7 @@
           new Chart(document.getElementById("areaChart_rhodora"), {
             type:"bar", data:{
               labels:["Other"],
-              datasets:[{"label": "Lunch", "data": [4738.63], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}, {"label": "Dinner", "data": [37734.99], "backgroundColor": "rgba(245,158,11,.7)", "borderRadius": 2}, {"label": "Late Night", "data": [917.21], "backgroundColor": "rgba(74,143,181,.7)", "borderRadius": 2}, {"label": "Unknown", "data": [50.0], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}]
+              datasets:[{"label": "Lunch", "data": [4738.63], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}, {"label": "PM", "data": [50.0], "backgroundColor": "rgba(16,185,129,.7)", "borderRadius": 2}, {"label": "Dinner", "data": [37734.99], "backgroundColor": "rgba(245,158,11,.7)", "borderRadius": 2}, {"label": "Late Night", "data": [917.21], "backgroundColor": "rgba(74,143,181,.7)", "borderRadius": 2}]
             },
             options:{ responsive:true,
               plugins:{ legend:{ position:"top", labels:{ color:"#7a90b8", boxWidth:12 } } },
@@ -1311,8 +1288,8 @@
           });
           new Chart(document.getElementById("hourlyChart_rhodora"), {
             type:"line", data:{
-              labels:[],
-              datasets:[{label:"Net Sales", data:[],
+              labels:["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+              datasets:[{label:"Net Sales", data:[8864.12, 5788.56, 3476.22, 1609.59, 868.77, 48.44, 198.96, 1079.16, 1826.65, 2457.66, 4911.85, 5332.35, 6978.5],
                 borderColor:color, backgroundColor:color+"33",
                 fill:true, tension:0.4, pointRadius:2}]
             },
@@ -1326,7 +1303,7 @@
 
 <div class="container">
   <div class="report-footer">
-    Generated 2026-03-12 10:28 &nbsp;&middot;&nbsp; The Oberon Group &nbsp;&middot;&nbsp; Weekly Sales Report
+    Generated 2026-03-12 10:40 &nbsp;&middot;&nbsp; The Oberon Group &nbsp;&middot;&nbsp; Weekly Sales Report
   </div>
 </div>
 
@@ -1343,9 +1320,9 @@ const moneyFmt = { callback: v => "$" + v.toLocaleString() };
 const locLabels    = ["Anais", "Rucola", "Rhodora"];
 const locNetSales  = [34549.88, 93700.91, 43440.83];
 const locColors    = ["#e85c0d", "#3b82f6", "#10b981"];
-const crossStData  = [{"label": "Breakfast", "data": [0, 6116.47, 0], "backgroundColor": "rgba(74,143,181,.7)", "borderRadius": 2}, {"label": "Lunch", "data": [0, 17214.73, 4738.63], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}, {"label": "AM", "data": [3499.35, 0, 0], "backgroundColor": "rgba(196,98,45,.7)", "borderRadius": 2}, {"label": "PM", "data": [22603.34, 0, 0], "backgroundColor": "rgba(16,185,129,.7)", "borderRadius": 2}, {"label": "Dinner", "data": [0, 70369.71, 37734.99], "backgroundColor": "rgba(245,158,11,.7)", "borderRadius": 2}, {"label": "Late Night", "data": [0, 0, 917.21], "backgroundColor": "rgba(74,143,181,.7)", "borderRadius": 2}, {"label": "Unknown", "data": [8447.19, 0, 50.0], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}];
-const allHLabels   = [];
-const locHDatasets = [{"label": "Anais", "data": [], "borderColor": "#e85c0d", "fill": false, "tension": 0.4}, {"label": "Rucola", "data": [], "borderColor": "#3b82f6", "fill": false, "tension": 0.4}, {"label": "Rhodora", "data": [], "borderColor": "#10b981", "fill": false, "tension": 0.4}];
+const crossStData  = [{"label": "Breakfast", "data": [0, 6116.47, 0], "backgroundColor": "rgba(74,143,181,.7)", "borderRadius": 2}, {"label": "Lunch", "data": [0, 17214.73, 4738.63], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}, {"label": "AM", "data": [7990.29, 0, 0], "backgroundColor": "rgba(196,98,45,.7)", "borderRadius": 2}, {"label": "PM", "data": [26559.59, 0, 50.0], "backgroundColor": "rgba(16,185,129,.7)", "borderRadius": 2}, {"label": "Dinner", "data": [0, 70369.71, 37734.99], "backgroundColor": "rgba(245,158,11,.7)", "borderRadius": 2}, {"label": "Late Night", "data": [0, 0, 917.21], "backgroundColor": "rgba(74,143,181,.7)", "borderRadius": 2}];
+const allHLabels   = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
+const locHDatasets = [{"label": "Anais", "data": [5263.47, 3763.12, 1425.51, 574.62, 141.09, 120.14, 22.11, 2664.85, 328.73, 422.83, 460.26, 4581.54, 971.29, 949.76, 1925.08, 2707.5, 3378.28, 4849.7], "borderColor": "#e85c0d", "fill": false, "tension": 0.4}, {"label": "Rucola", "data": [27131.31, 3805.66, 1189.98, 71.7, 0, 0, 0, 1832.87, 2545.07, 2871.41, 3239.65, 6719.1, 4136.72, 1950.45, 35.93, 1425.46, 5330.53, 31415.07], "borderColor": "#3b82f6", "fill": false, "tension": 0.4}, {"label": "Rhodora", "data": [8864.12, 5788.56, 3476.22, 1609.59, 868.77, 48.44, 0, 0, 0, 0, 0, 198.96, 1079.16, 1826.65, 2457.66, 4911.85, 5332.35, 6978.5], "borderColor": "#10b981", "fill": false, "tension": 0.4}];
 
 new Chart(document.getElementById("locSalesChart"), {
   type:"bar",
