@@ -16,8 +16,6 @@
     --accent2:  #d4783f;
     --text:     #e8dfd0;
     --sub:      #7a90b8;
-    --am:       #4a8fb5;
-    --pm:       #9b7db8;
     --divider:  rgba(196,98,45,.25);
   }
   * { box-sizing:border-box; margin:0; padding:0; }
@@ -178,8 +176,6 @@
   td { padding:10px 14px; border-bottom:1px solid var(--border); color:var(--text); font-weight:300; }
   tr:last-child td { border-bottom:none; }
   .area-cell { font-weight:500; vertical-align:middle; color:var(--text); }
-  .row-am td { background:rgba(74,143,181,.06); }
-  .row-pm td { background:rgba(155,125,184,.06); }
   .totals-row td {
     background:var(--surface2);
     border-top:1px solid var(--divider);
@@ -190,13 +186,28 @@
     display:inline-block; padding:2px 9px; border-radius:2px;
     font-size:.62rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
   }
-  .badge-am { background:rgba(74,143,181,.15); color:var(--am); }
-  .badge-pm { background:rgba(155,125,184,.15); color:var(--pm); }
   .mini-title {
     font-size:.62rem; font-weight:500; text-transform:uppercase;
     letter-spacing:.2em; color:var(--sub); padding:14px 14px 0; margin-bottom:0;
   }
   .items-table .rank { color:var(--sub); font-weight:300; width:30px; }
+
+  /* ── Dynamic service type row/badge colors ── */
+  .row-st_breakfast td { background:rgba(74,143,181,.05); }
+  .badge-st_breakfast { background:rgba(74,143,181,.15); color:#4a8fb5; }
+  .row-st_lunch td { background:rgba(155,125,184,.05); }
+  .badge-st_lunch { background:rgba(155,125,184,.15); color:#9b7db8; }
+  .row-st_am td { background:rgba(196,98,45,.05); }
+  .badge-st_am { background:rgba(196,98,45,.15); color:#d4783f; }
+  .row-st_pm td { background:rgba(16,185,129,.05); }
+  .badge-st_pm { background:rgba(16,185,129,.15); color:#10b981; }
+  .row-st_dinner td { background:rgba(245,158,11,.05); }
+  .badge-st_dinner { background:rgba(245,158,11,.15); color:#f59e0b; }
+  .row-st_late_night td { background:rgba(74,143,181,.05); }
+  .badge-st_late_night { background:rgba(74,143,181,.15); color:#4a8fb5; }
+  .row-st_unknown td { background:rgba(155,125,184,.05); }
+  .badge-st_unknown { background:rgba(155,125,184,.15); color:#9b7db8; }
+
 
   /* ── Location sections ── */
   .loc-section { margin-bottom:48px; }
@@ -222,8 +233,6 @@
     letter-spacing:.1em; margin-left:auto;
   }
   .loc-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-
-  /* ── Location comparison row ── */
   .loc-name-cell { display:flex; align-items:center; gap:8px; }
 
   /* ── Tabs ── */
@@ -280,7 +289,7 @@
   <div class="kpi-grid">
     <div class="kpi-card">
           <div class="kpi-label">Net Sales</div>
-          <div class="kpi-value">$178,266.62</div>
+          <div class="kpi-value">$171,691.62</div>
           
         </div>
     <div class="kpi-card">
@@ -290,17 +299,17 @@
         </div>
     <div class="kpi-card">
           <div class="kpi-label">Total Covers</div>
-          <div class="kpi-value">1,817</div>
+          <div class="kpi-value">1,816</div>
           
         </div>
     <div class="kpi-card">
           <div class="kpi-label">Total Checks</div>
-          <div class="kpi-value">1,817</div>
+          <div class="kpi-value">1,816</div>
           
         </div>
     <div class="kpi-card">
           <div class="kpi-label">Avg Check</div>
-          <div class="kpi-value">$98.11</div>
+          <div class="kpi-value">$94.54</div>
           
         </div>
     <div class="kpi-card">
@@ -332,7 +341,7 @@
         <th>Location</th><th>Net Sales</th><th>Gross Sales</th>
         <th>Covers</th><th>Checks</th><th>Avg Check</th><th>Labor %</th>
         <th>Voids</th><th>Comps</th><th>Discounts</th>
-        <th>AM Sales</th><th>PM Sales</th>
+        <th>Breakfast</th><th>Lunch</th><th>AM</th><th>PM</th><th>Dinner</th><th>Late Night</th><th>Unknown</th>
       </tr></thead>
       <tbody><tr>
           <td><div class="loc-name-cell"><span class="loc-dot" style="background:#e85c0d"></span>Anais</div></td>
@@ -345,8 +354,7 @@
           <td>$378.75</td>
           <td>$0.00</td>
           <td>$1,522.80</td>
-          <td>$0.00</td>
-          <td>$0.00</td>
+          <td>$0.00</td><td>$0.00</td><td>$3,499.35</td><td>$22,603.34</td><td>$0.00</td><td>$0.00</td><td>$8,447.19</td>
         </tr><tr>
           <td><div class="loc-name-cell"><span class="loc-dot" style="background:#3b82f6"></span>Rucola</div></td>
           <td>$93,700.91</td>
@@ -358,34 +366,31 @@
           <td>$3,022.50</td>
           <td>$0.00</td>
           <td>$47.20</td>
-          <td>$0.00</td>
-          <td>$0.00</td>
+          <td>$6,116.47</td><td>$17,214.73</td><td>$0.00</td><td>$0.00</td><td>$70,369.71</td><td>$0.00</td><td>$0.00</td>
         </tr><tr>
           <td><div class="loc-name-cell"><span class="loc-dot" style="background:#10b981"></span>Rhodora</div></td>
-          <td>$50,015.83</td>
+          <td>$43,440.83</td>
           <td>$0.00</td>
-          <td>722</td>
-          <td>722</td>
-          <td>$69.27</td>
+          <td>721</td>
+          <td>721</td>
+          <td>$60.25</td>
           <td>0.0%</td>
           <td>$650.00</td>
           <td>$0.00</td>
           <td>$331.85</td>
-          <td>$0.00</td>
-          <td>$0.00</td>
+          <td>$0.00</td><td>$4,738.63</td><td>$0.00</td><td>$0.00</td><td>$37,734.99</td><td>$917.21</td><td>$50.00</td>
         </tr><tr class="totals-row">
       <td><strong>All Locations</strong></td>
-      <td><strong>$178,266.62</strong></td>
+      <td><strong>$171,691.62</strong></td>
       <td><strong>$0.00</strong></td>
-      <td><strong>1,817</strong></td>
-      <td><strong>1,817</strong></td>
-      <td><strong>$98.11</strong></td>
+      <td><strong>1,816</strong></td>
+      <td><strong>1,816</strong></td>
+      <td><strong>$94.54</strong></td>
       <td><strong>0.0%</strong></td>
       <td><strong>$4,051.25</strong></td>
       <td><strong>$0.00</strong></td>
       <td><strong>$1,901.85</strong></td>
-      <td><strong>$0.00</strong></td>
-      <td><strong>$0.00</strong></td>
+      <td><strong>$6,116.47</strong></td><td><strong>$21,953.36</strong></td><td><strong>$3,499.35</strong></td><td><strong>$22,603.34</strong></td><td><strong>$108,104.70</strong></td><td><strong>$917.21</strong></td><td><strong>$8,497.19</strong></td>
     </tr></tbody>
     </table>
   </div>
@@ -397,7 +402,7 @@
       <canvas id="locSalesChart" height="220"></canvas>
     </div>
     <div class="chart-card">
-      <h3>AM vs PM by Location</h3>
+      <h3>Sales by Service Type &amp; Location</h3>
       <canvas id="locDaypartChart" height="220"></canvas>
     </div>
     <div class="chart-card full">
@@ -465,29 +470,40 @@
           <div class="table-card" style="margin-top:16px">
             <table>
               <thead><tr>
-                <th>Area</th><th>Daypart</th><th>Net Sales</th><th>Gross Sales</th>
+                <th>Area</th><th>Service Type</th><th>Net Sales</th><th>Gross Sales</th>
                 <th>Covers</th><th>Checks</th><th>Avg Check</th>
                 <th>Voids</th><th>Comps</th><th>Discounts</th>
               </tr></thead>
-              <tbody><tr class="row-am">
-                  <td rowspan="2" class="area-cell">Other</td>
-                  <td><span class="badge badge-am">AM</span></td>
+              <tbody><tr class="row-st_am">
+                  <td rowspan="3" class="area-cell">Other</td>
+                  <td><span class="badge badge-st_am">AM</span></td>
+                  <td>$3,499.35</td>
+                  <td>$0.00</td>
+                  <td>242</td>
+                  <td>242</td>
+                  <td>$14.46</td>
+                  <td>$81.75</td>
                   <td>$0.00</td>
                   <td>$0.00</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
-                </tr><tr class="row-pm">
+                </tr><tr class="row-st_pm">
                   
-                  <td><span class="badge badge-pm">PM</span></td>
+                  <td><span class="badge badge-st_pm">PM</span></td>
+                  <td>$22,603.34</td>
                   <td>$0.00</td>
+                  <td>329</td>
+                  <td>329</td>
+                  <td>$68.70</td>
+                  <td>$297.00</td>
                   <td>$0.00</td>
-                  <td>0</td>
-                  <td>0</td>
+                  <td>$1,522.80</td>
+                </tr><tr class="row-st_unknown">
+                  
+                  <td><span class="badge badge-st_unknown">Unknown</span></td>
+                  <td>$8,447.19</td>
                   <td>$0.00</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>$2,815.73</td>
                   <td>$0.00</td>
                   <td>$0.00</td>
                   <td>$0.00</td>
@@ -495,22 +511,31 @@
               <tfoot>
                 <tr class="totals-row">
               <td colspan="2"><strong>AM Total</strong></td>
+              <td><strong>$3,499.35</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>242</strong></td>
+              <td><strong>242</strong></td>
+              <td><strong>$14.46</strong></td>
+              <td><strong>$81.75</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
-              <td><strong>0</strong></td>
-              <td><strong>0</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>$0.00</strong></td>
-            </tr>
-                <tr class="totals-row">
+            </tr><tr class="totals-row">
               <td colspan="2"><strong>PM Total</strong></td>
+              <td><strong>$22,603.34</strong></td>
               <td><strong>$0.00</strong></td>
+              <td><strong>329</strong></td>
+              <td><strong>329</strong></td>
+              <td><strong>$68.70</strong></td>
+              <td><strong>$297.00</strong></td>
               <td><strong>$0.00</strong></td>
-              <td><strong>0</strong></td>
-              <td><strong>0</strong></td>
+              <td><strong>$1,522.80</strong></td>
+            </tr><tr class="totals-row">
+              <td colspan="2"><strong>Unknown Total</strong></td>
+              <td><strong>$8,447.19</strong></td>
               <td><strong>$0.00</strong></td>
+              <td><strong>3</strong></td>
+              <td><strong>3</strong></td>
+              <td><strong>$2,815.73</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
@@ -532,7 +557,7 @@
 
           <div class="charts-grid" style="margin-top:16px">
             <div class="chart-card">
-              <h3>Sales by Area &amp; Daypart</h3>
+              <h3>Sales by Area &amp; Service Type</h3>
               <canvas id="areaChart_anais" height="220"></canvas>
             </div>
             <div class="chart-card">
@@ -656,10 +681,7 @@
           new Chart(document.getElementById("areaChart_anais"), {
             type:"bar", data:{
               labels:["Other"],
-              datasets:[
-                {label:"AM", data:[0], backgroundColor:"rgba(74,143,181,.7)", borderRadius:2},
-                {label:"PM", data:[0], backgroundColor:"rgba(155,125,184,.7)", borderRadius:2}
-              ]
+              datasets:[{"label": "AM", "data": [3499.35], "backgroundColor": "rgba(196,98,45,.7)", "borderRadius": 2}, {"label": "PM", "data": [22603.34], "backgroundColor": "rgba(16,185,129,.7)", "borderRadius": 2}, {"label": "Unknown", "data": [8447.19], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}]
             },
             options:{ responsive:true,
               plugins:{ legend:{ position:"top", labels:{ color:"#7a90b8", boxWidth:12 } } },
@@ -744,53 +766,73 @@
           <div class="table-card" style="margin-top:16px">
             <table>
               <thead><tr>
-                <th>Area</th><th>Daypart</th><th>Net Sales</th><th>Gross Sales</th>
+                <th>Area</th><th>Service Type</th><th>Net Sales</th><th>Gross Sales</th>
                 <th>Covers</th><th>Checks</th><th>Avg Check</th>
                 <th>Voids</th><th>Comps</th><th>Discounts</th>
               </tr></thead>
-              <tbody><tr class="row-am">
-                  <td rowspan="2" class="area-cell">Other</td>
-                  <td><span class="badge badge-am">AM</span></td>
+              <tbody><tr class="row-st_breakfast">
+                  <td rowspan="3" class="area-cell">Other</td>
+                  <td><span class="badge badge-st_breakfast">Breakfast</span></td>
+                  <td>$6,116.47</td>
                   <td>$0.00</td>
+                  <td>110</td>
+                  <td>110</td>
+                  <td>$55.60</td>
+                  <td>$1,116.00</td>
                   <td>$0.00</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
-                </tr><tr class="row-pm">
+                  <td>$34.40</td>
+                </tr><tr class="row-st_lunch">
                   
-                  <td><span class="badge badge-pm">PM</span></td>
+                  <td><span class="badge badge-st_lunch">Lunch</span></td>
+                  <td>$17,214.73</td>
                   <td>$0.00</td>
+                  <td>206</td>
+                  <td>206</td>
+                  <td>$83.57</td>
+                  <td>$536.00</td>
                   <td>$0.00</td>
-                  <td>0</td>
-                  <td>0</td>
+                  <td>$12.80</td>
+                </tr><tr class="row-st_dinner">
+                  
+                  <td><span class="badge badge-st_dinner">Dinner</span></td>
+                  <td>$70,369.71</td>
                   <td>$0.00</td>
-                  <td>$0.00</td>
+                  <td>205</td>
+                  <td>205</td>
+                  <td>$343.27</td>
+                  <td>$1,370.50</td>
                   <td>$0.00</td>
                   <td>$0.00</td>
                 </tr></tbody>
               <tfoot>
                 <tr class="totals-row">
-              <td colspan="2"><strong>AM Total</strong></td>
+              <td colspan="2"><strong>Breakfast Total</strong></td>
+              <td><strong>$6,116.47</strong></td>
               <td><strong>$0.00</strong></td>
+              <td><strong>110</strong></td>
+              <td><strong>110</strong></td>
+              <td><strong>$55.60</strong></td>
+              <td><strong>$1,116.00</strong></td>
               <td><strong>$0.00</strong></td>
-              <td><strong>0</strong></td>
-              <td><strong>0</strong></td>
+              <td><strong>$34.40</strong></td>
+            </tr><tr class="totals-row">
+              <td colspan="2"><strong>Lunch Total</strong></td>
+              <td><strong>$17,214.73</strong></td>
               <td><strong>$0.00</strong></td>
+              <td><strong>206</strong></td>
+              <td><strong>206</strong></td>
+              <td><strong>$83.57</strong></td>
+              <td><strong>$536.00</strong></td>
               <td><strong>$0.00</strong></td>
+              <td><strong>$12.80</strong></td>
+            </tr><tr class="totals-row">
+              <td colspan="2"><strong>Dinner Total</strong></td>
+              <td><strong>$70,369.71</strong></td>
               <td><strong>$0.00</strong></td>
-              <td><strong>$0.00</strong></td>
-            </tr>
-                <tr class="totals-row">
-              <td colspan="2"><strong>PM Total</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>0</strong></td>
-              <td><strong>0</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>$0.00</strong></td>
+              <td><strong>205</strong></td>
+              <td><strong>205</strong></td>
+              <td><strong>$343.27</strong></td>
+              <td><strong>$1,370.50</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
             </tr>
@@ -811,7 +853,7 @@
 
           <div class="charts-grid" style="margin-top:16px">
             <div class="chart-card">
-              <h3>Sales by Area &amp; Daypart</h3>
+              <h3>Sales by Area &amp; Service Type</h3>
               <canvas id="areaChart_rucola" height="220"></canvas>
             </div>
             <div class="chart-card">
@@ -935,10 +977,7 @@
           new Chart(document.getElementById("areaChart_rucola"), {
             type:"bar", data:{
               labels:["Other"],
-              datasets:[
-                {label:"AM", data:[0], backgroundColor:"rgba(74,143,181,.7)", borderRadius:2},
-                {label:"PM", data:[0], backgroundColor:"rgba(155,125,184,.7)", borderRadius:2}
-              ]
+              datasets:[{"label": "Breakfast", "data": [6116.47], "backgroundColor": "rgba(74,143,181,.7)", "borderRadius": 2}, {"label": "Lunch", "data": [17214.73], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}, {"label": "Dinner", "data": [70369.71], "backgroundColor": "rgba(245,158,11,.7)", "borderRadius": 2}]
             },
             options:{ responsive:true,
               plugins:{ legend:{ position:"top", labels:{ color:"#7a90b8", boxWidth:12 } } },
@@ -972,15 +1011,15 @@
           <div class="loc-header" style="border-left-color:#10b981">
             <span class="loc-dot" style="background:#10b981"></span>
             <span class="loc-header-name">Rhodora</span>
-            <span class="loc-sub">Net Sales: $50,015.83 &nbsp;&middot;&nbsp;
-              Covers: 722 &nbsp;&middot;&nbsp;
+            <span class="loc-sub">Net Sales: $43,440.83 &nbsp;&middot;&nbsp;
+              Covers: 721 &nbsp;&middot;&nbsp;
               Labor: 0.0%</span>
           </div>
 
           <div class="kpi-grid kpi-grid-sm">
             <div class="kpi-card">
           <div class="kpi-label">Net Sales</div>
-          <div class="kpi-value">$50,015.83</div>
+          <div class="kpi-value">$43,440.83</div>
           
         </div>
             <div class="kpi-card">
@@ -990,12 +1029,12 @@
         </div>
             <div class="kpi-card">
           <div class="kpi-label">Covers</div>
-          <div class="kpi-value">722</div>
+          <div class="kpi-value">721</div>
           
         </div>
             <div class="kpi-card">
           <div class="kpi-label">Avg Check</div>
-          <div class="kpi-value">$69.27</div>
+          <div class="kpi-value">$60.25</div>
           
         </div>
             <div class="kpi-card">
@@ -1023,63 +1062,104 @@
           <div class="table-card" style="margin-top:16px">
             <table>
               <thead><tr>
-                <th>Area</th><th>Daypart</th><th>Net Sales</th><th>Gross Sales</th>
+                <th>Area</th><th>Service Type</th><th>Net Sales</th><th>Gross Sales</th>
                 <th>Covers</th><th>Checks</th><th>Avg Check</th>
                 <th>Voids</th><th>Comps</th><th>Discounts</th>
               </tr></thead>
-              <tbody><tr class="row-am">
-                  <td rowspan="2" class="area-cell">Other</td>
-                  <td><span class="badge badge-am">AM</span></td>
+              <tbody><tr class="row-st_lunch">
+                  <td rowspan="4" class="area-cell">Other</td>
+                  <td><span class="badge badge-st_lunch">Lunch</span></td>
+                  <td>$4,738.63</td>
+                  <td>$0.00</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>$63.18</td>
                   <td>$0.00</td>
                   <td>$0.00</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
-                  <td>$0.00</td>
-                </tr><tr class="row-pm">
+                  <td>$314.25</td>
+                </tr><tr class="row-st_dinner">
                   
-                  <td><span class="badge badge-pm">PM</span></td>
+                  <td><span class="badge badge-st_dinner">Dinner</span></td>
+                  <td>$37,734.99</td>
+                  <td>$0.00</td>
+                  <td>628</td>
+                  <td>628</td>
+                  <td>$60.09</td>
+                  <td>$650.00</td>
+                  <td>$0.00</td>
+                  <td>$17.60</td>
+                </tr><tr class="row-st_late_night">
+                  
+                  <td><span class="badge badge-st_late_night">Late Night</span></td>
+                  <td>$917.21</td>
+                  <td>$0.00</td>
+                  <td>17</td>
+                  <td>17</td>
+                  <td>$53.95</td>
                   <td>$0.00</td>
                   <td>$0.00</td>
-                  <td>0</td>
-                  <td>0</td>
                   <td>$0.00</td>
+                </tr><tr class="row-st_unknown">
+                  
+                  <td><span class="badge badge-st_unknown">Unknown</span></td>
+                  <td>$50.00</td>
+                  <td>$0.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>$50.00</td>
                   <td>$0.00</td>
                   <td>$0.00</td>
                   <td>$0.00</td>
                 </tr></tbody>
               <tfoot>
                 <tr class="totals-row">
-              <td colspan="2"><strong>AM Total</strong></td>
+              <td colspan="2"><strong>Lunch Total</strong></td>
+              <td><strong>$4,738.63</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>75</strong></td>
+              <td><strong>75</strong></td>
+              <td><strong>$63.18</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
-              <td><strong>0</strong></td>
-              <td><strong>0</strong></td>
+              <td><strong>$314.25</strong></td>
+            </tr><tr class="totals-row">
+              <td colspan="2"><strong>Dinner Total</strong></td>
+              <td><strong>$37,734.99</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>628</strong></td>
+              <td><strong>628</strong></td>
+              <td><strong>$60.09</strong></td>
+              <td><strong>$650.00</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>$17.60</strong></td>
+            </tr><tr class="totals-row">
+              <td colspan="2"><strong>Late Night Total</strong></td>
+              <td><strong>$917.21</strong></td>
+              <td><strong>$0.00</strong></td>
+              <td><strong>17</strong></td>
+              <td><strong>17</strong></td>
+              <td><strong>$53.95</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
+            </tr><tr class="totals-row">
+              <td colspan="2"><strong>Unknown Total</strong></td>
+              <td><strong>$50.00</strong></td>
               <td><strong>$0.00</strong></td>
-            </tr>
-                <tr class="totals-row">
-              <td colspan="2"><strong>PM Total</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>$0.00</strong></td>
-              <td><strong>0</strong></td>
-              <td><strong>0</strong></td>
-              <td><strong>$0.00</strong></td>
+              <td><strong>1</strong></td>
+              <td><strong>1</strong></td>
+              <td><strong>$50.00</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$0.00</strong></td>
             </tr>
                 <tr class="totals-row">
               <td colspan="2"><strong>Grand Total</strong></td>
-              <td><strong>$50,015.83</strong></td>
+              <td><strong>$43,440.83</strong></td>
               <td><strong>$0.00</strong></td>
-              <td><strong>722</strong></td>
-              <td><strong>722</strong></td>
-              <td><strong>$69.27</strong></td>
+              <td><strong>721</strong></td>
+              <td><strong>721</strong></td>
+              <td><strong>$60.25</strong></td>
               <td><strong>$650.00</strong></td>
               <td><strong>$0.00</strong></td>
               <td><strong>$331.85</strong></td>
@@ -1090,7 +1170,7 @@
 
           <div class="charts-grid" style="margin-top:16px">
             <div class="chart-card">
-              <h3>Sales by Area &amp; Daypart</h3>
+              <h3>Sales by Area &amp; Service Type</h3>
               <canvas id="areaChart_rhodora" height="220"></canvas>
             </div>
             <div class="chart-card">
@@ -1115,88 +1195,88 @@
           <td>$25.52</td>
         </tr><tr>
           <td class="rank">2</td>
-          <td>Annex Minimum</td>
-          <td>1.0</td>
-          <td>$5,000.00</td>
-          <td>$5,000.00</td>
-        </tr><tr>
-          <td class="rank">3</td>
           <td>Grange Aux Belles, La Chausse Rouge </td>
           <td>157.0</td>
           <td>$3,836.00</td>
           <td>$24.43</td>
         </tr><tr>
-          <td class="rank">4</td>
+          <td class="rank">3</td>
           <td>Grange Aux Belles, Le Grolleau Noir </td>
           <td>101.0</td>
           <td>$2,638.00</td>
           <td>$26.12</td>
         </tr><tr>
-          <td class="rank">5</td>
+          <td class="rank">4</td>
           <td>Julien Pineau, Chicos </td>
           <td>107.0</td>
           <td>$2,551.00</td>
           <td>$23.84</td>
         </tr><tr>
-          <td class="rank">6</td>
+          <td class="rank">5</td>
           <td> Le Papillon D'Orphee </td>
           <td>58.0</td>
           <td>$1,477.00</td>
           <td>$25.47</td>
         </tr><tr>
-          <td class="rank">7</td>
+          <td class="rank">6</td>
           <td>Castell d'age, Cuvee Patos</td>
           <td>70.0</td>
           <td>$1,360.00</td>
           <td>$19.43</td>
         </tr><tr>
-          <td class="rank">8</td>
+          <td class="rank">7</td>
           <td>Coutelou, 7 Rue de la Pompe </td>
           <td>58.0</td>
           <td>$1,342.00</td>
           <td>$23.14</td>
         </tr><tr>
-          <td class="rank">9</td>
+          <td class="rank">8</td>
           <td>ONE OF EVERYTHING</td>
           <td>11.0</td>
           <td>$1,105.00</td>
           <td>$100.45</td>
         </tr><tr>
-          <td class="rank">10</td>
+          <td class="rank">9</td>
           <td>Cheese Plate</td>
           <td>42.0</td>
           <td>$1,008.00</td>
           <td>$24.00</td>
         </tr><tr>
-          <td class="rank">11</td>
+          <td class="rank">10</td>
           <td>Jade Cash</td>
           <td>55.0</td>
           <td>$1,008.00</td>
           <td>$18.33</td>
         </tr><tr>
-          <td class="rank">12</td>
+          <td class="rank">11</td>
           <td>Draft Killsboro Pilsner</td>
           <td>89.0</td>
           <td>$990.00</td>
           <td>$11.12</td>
         </tr><tr>
-          <td class="rank">13</td>
+          <td class="rank">12</td>
           <td>Saint- Barbe, Macon Blanc </td>
           <td>43.0</td>
           <td>$950.00</td>
           <td>$22.09</td>
         </tr><tr>
-          <td class="rank">14</td>
+          <td class="rank">13</td>
           <td>Bread Service</td>
           <td>98.0</td>
           <td>$900.00</td>
           <td>$9.18</td>
         </tr><tr>
-          <td class="rank">15</td>
+          <td class="rank">14</td>
           <td>Negroni</td>
           <td>36.0</td>
           <td>$608.00</td>
           <td>$16.89</td>
+        </tr><tr>
+          <td class="rank">15</td>
+          <td>Bratwurst</td>
+          <td>28.0</td>
+          <td>$594.00</td>
+          <td>$21.21</td>
         </tr></tbody>
             </table>
           </div>
@@ -1214,10 +1294,7 @@
           new Chart(document.getElementById("areaChart_rhodora"), {
             type:"bar", data:{
               labels:["Other"],
-              datasets:[
-                {label:"AM", data:[0], backgroundColor:"rgba(74,143,181,.7)", borderRadius:2},
-                {label:"PM", data:[0], backgroundColor:"rgba(155,125,184,.7)", borderRadius:2}
-              ]
+              datasets:[{"label": "Lunch", "data": [4738.63], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}, {"label": "Dinner", "data": [37734.99], "backgroundColor": "rgba(245,158,11,.7)", "borderRadius": 2}, {"label": "Late Night", "data": [917.21], "backgroundColor": "rgba(74,143,181,.7)", "borderRadius": 2}, {"label": "Unknown", "data": [50.0], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}]
             },
             options:{ responsive:true,
               plugins:{ legend:{ position:"top", labels:{ color:"#7a90b8", boxWidth:12 } } },
@@ -1225,8 +1302,8 @@
           });
           new Chart(document.getElementById("itemsChart_rhodora"), {
             type:"bar", data:{
-              labels:["Jeux de Vins, Skin Contac", "Annex Minimum", "Grange Aux Belles, La Cha", "Grange Aux Belles, Le Gro", "Julien Pineau, Chicos ", " Le Papillon D'Orphee ", "Castell d'age, Cuvee Pato", "Coutelou, 7 Rue de la Pom", "ONE OF EVERYTHING", "Cheese Plate"],
-              datasets:[{label:"Revenue", data:[6660.0, 5000.0, 3836.0, 2638.0, 2551.0, 1477.0, 1360.0, 1342.0, 1105.0, 1008.0], backgroundColor:color, borderRadius:2}]
+              labels:["Jeux de Vins, Skin Contac", "Grange Aux Belles, La Cha", "Grange Aux Belles, Le Gro", "Julien Pineau, Chicos ", " Le Papillon D'Orphee ", "Castell d'age, Cuvee Pato", "Coutelou, 7 Rue de la Pom", "ONE OF EVERYTHING", "Cheese Plate", "Jade Cash"],
+              datasets:[{label:"Revenue", data:[6660.0, 3836.0, 2638.0, 2551.0, 1477.0, 1360.0, 1342.0, 1105.0, 1008.0, 1008.0], backgroundColor:color, borderRadius:2}]
             },
             options:{ indexAxis:"y", responsive:true,
               plugins:{ legend:{ display:false } },
@@ -1249,7 +1326,7 @@
 
 <div class="container">
   <div class="report-footer">
-    Generated 2026-03-11 18:49 &nbsp;&middot;&nbsp; The Oberon Group &nbsp;&middot;&nbsp; Weekly Sales Report
+    Generated 2026-03-12 10:28 &nbsp;&middot;&nbsp; The Oberon Group &nbsp;&middot;&nbsp; Weekly Sales Report
   </div>
 </div>
 
@@ -1263,12 +1340,11 @@ const dOpts = {
 const moneyFmt = { callback: v => "$" + v.toLocaleString() };
 
 // Cross-location charts
-const locLabels   = ["Anais", "Rucola", "Rhodora"];
-const locNetSales = [34549.88, 93700.91, 50015.83];
-const locColors   = ["#e85c0d", "#3b82f6", "#10b981"];
-const locAM       = [0, 0, 0];
-const locPM       = [0, 0, 0];
-const allHLabels  = [];
+const locLabels    = ["Anais", "Rucola", "Rhodora"];
+const locNetSales  = [34549.88, 93700.91, 43440.83];
+const locColors    = ["#e85c0d", "#3b82f6", "#10b981"];
+const crossStData  = [{"label": "Breakfast", "data": [0, 6116.47, 0], "backgroundColor": "rgba(74,143,181,.7)", "borderRadius": 2}, {"label": "Lunch", "data": [0, 17214.73, 4738.63], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}, {"label": "AM", "data": [3499.35, 0, 0], "backgroundColor": "rgba(196,98,45,.7)", "borderRadius": 2}, {"label": "PM", "data": [22603.34, 0, 0], "backgroundColor": "rgba(16,185,129,.7)", "borderRadius": 2}, {"label": "Dinner", "data": [0, 70369.71, 37734.99], "backgroundColor": "rgba(245,158,11,.7)", "borderRadius": 2}, {"label": "Late Night", "data": [0, 0, 917.21], "backgroundColor": "rgba(74,143,181,.7)", "borderRadius": 2}, {"label": "Unknown", "data": [8447.19, 0, 50.0], "backgroundColor": "rgba(155,125,184,.7)", "borderRadius": 2}];
+const allHLabels   = [];
 const locHDatasets = [{"label": "Anais", "data": [], "borderColor": "#e85c0d", "fill": false, "tension": 0.4}, {"label": "Rucola", "data": [], "borderColor": "#3b82f6", "fill": false, "tension": 0.4}, {"label": "Rhodora", "data": [], "borderColor": "#10b981", "fill": false, "tension": 0.4}];
 
 new Chart(document.getElementById("locSalesChart"), {
@@ -1281,10 +1357,7 @@ new Chart(document.getElementById("locSalesChart"), {
 });
 new Chart(document.getElementById("locDaypartChart"), {
   type:"bar",
-  data:{ labels:locLabels, datasets:[
-    {label:"AM", data:locAM, backgroundColor:"rgba(74,143,181,.7)", borderRadius:2},
-    {label:"PM", data:locPM, backgroundColor:"rgba(155,125,184,.7)", borderRadius:2},
-  ]},
+  data:{ labels:locLabels, datasets:crossStData },
   options:{ responsive:true,
     plugins:{ legend:{ position:"top", labels:{ color:"#7a90b8", boxWidth:12 } } },
     scales:{ x:{...dOpts}, y:{...dOpts, beginAtZero:true, ticks:{...dOpts.ticks, callback:moneyFmt} } } }
